@@ -134,7 +134,7 @@ for name in patched:
 PATCHPY
 
 grep -R "monotonic_clock" -n Examples || true
-grep -R "steady_clock" -n Examples | head -n 20
+(grep -R "steady_clock" -n Examples | head -n 20) || true
 
 echo "=== BUILD ORB_SLAM3 ==="
 rm -rf build
