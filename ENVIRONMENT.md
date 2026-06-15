@@ -65,3 +65,18 @@ Every system, dataset, dependency, and reused attack repository must be version-
 - Occlusion script version:
 - Texture script version:
 - Severity definition:
+
+## Conda build dependencies for ORB-SLAM3
+
+- Environment name: slam-bench
+- Python: 3.10.20
+- CMake: 4.3.3 from conda-forge
+- Make: 4.4.1 from conda-forge
+- Ninja: 1.13.2 from conda-forge
+- pkg-config: 0.29.2 from conda-forge
+- Eigen: 3.4.0 from conda-forge
+- OpenCV: 4.13.0 from conda-forge
+- Pangolin: pangolin-opengl 0.9.5 from conda-forge
+- Boost: 1.82.0 from conda-forge
+
+Note: Cluster OpenCV module opencv/4.10.0-gcc-13.1.0-jxdnl was checked but not used because it was built with key ORB-SLAM3-required OpenCV modules disabled, including calib3d, features2d, imgproc, highgui, and imgcodecs.
