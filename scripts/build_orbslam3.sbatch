@@ -161,6 +161,32 @@ PY2
 grep -n "System SLAM" Examples/Monocular/mono_kitti.cc
 
 echo ""
+echo "=== PATCH ORB_SLAM3 SETTINGS PRINT FOR RECTIFIED STEREO ==="
+python - <<'PY'
+from pathlib import Path
+
+p = Path("src/Settings.cc")
+text = p.read_text()
+old = "if(settings.sensor_ == System::STEREO || settings.sensor_ == System::IMU_STEREO){"
+new = "if((settings.sensor_ == System::STEREO || settings.sensor_ == System::IMU_STEREO) && settings.cameraType_ != Settings::Rectified){"
+needle = 'output << "\\t-Camera 2 parameters (";'
+idx = text.find(needle)
+if idx == -1:
+    raise SystemExit("Could not find Camera 2 print block")
+start = text.rfind(old, 0, idx)
+if start != -1:
+    text = text[:start] + new + text[start + len(old):]
+    p.write_text(text)
+    print("patched Settings.cc Camera 2 print guard for Rectified stereo")
+elif new in text[max(0, idx - 500):idx]:
+    print("Settings.cc Camera 2 print guard already patched")
+else:
+    raise SystemExit("Could not patch Settings.cc Camera 2 print guard")
+PY
+
+grep -n "Camera 2 parameters\|cameraType_ != Settings::Rectified" src/Settings.cc | head -n 20
+
+
 echo "=== PATCH ORB_SLAM3 STEREO KITTI FOR HEADLESS SLURM RUNS ==="
 python - <<'PY3'
 from pathlib import Path
