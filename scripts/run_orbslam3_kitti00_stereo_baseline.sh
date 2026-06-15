@@ -147,7 +147,7 @@ Path("$SUMMARY_JSON").write_text(json.dumps(summary, indent=2) + "\n")
 
 md = f"""# ORB-SLAM3 KITTI 00 Stereo Baseline Run
 
-- Run directory: `{run_dir}`
+- Run directory: {run_dir}
 - Frames evaluated: {summary["frames_evaluated"]}
 - Ground-truth path length: {summary["gt_path_length_m"]} m
 - ATE RMSE: {summary["ate_rmse_m"]} m
@@ -160,12 +160,12 @@ md = f"""# ORB-SLAM3 KITTI 00 Stereo Baseline Run
 
 ## Files
 
-- `CameraTrajectory.txt`
-- `ate_metrics.json`
-- `kitti_segment_metrics.json`
-- `run_summary.json`
-- `orbslam3_stdout.log`
-- `orbslam3_stderr.log`
+- CameraTrajectory.txt
+- ate_metrics.json
+- kitti_segment_metrics.json
+- run_summary.json
+- orbslam3_stdout.log
+- orbslam3_stderr.log
 
 ## Note
 
