@@ -34,3 +34,25 @@
 ## Notes
 
 This is a first baseline metric, not the final benchmark metric. For paper-quality reporting, add path-length-normalized drift and KITTI-style segment errors.
+
+## KITTI-style segment drift evaluation
+
+- Evaluation script: `scripts/evaluate_kitti_segments.py`
+- Step size: 10 frames
+- Segment lengths: 100, 200, 300, 400, 500, 600, 700, 800 m
+- Total evaluated segments: 3283
+- Mean translation drift: 0.6841217835324649%
+- Mean rotation drift: 0.24809458838244688 deg / 100 m
+
+### Segment drift by length
+
+| Segment length (m) | Segments | Translation drift mean (%) | Rotation drift mean (deg / 100m) |
+|---:|---:|---:|---:|
+| 100 | 445 | 0.987814784136025 | 0.6016933840204027 |
+| 200 | 431 | 0.8590768815095163 | 0.3414405097478553 |
+| 300 | 424 | 0.761081898090764 | 0.24501187090915086 |
+| 400 | 416 | 0.6996377250663942 | 0.20347593788745927 |
+| 500 | 408 | 0.6419971711518848 | 0.16675679140054184 |
+| 600 | 399 | 0.5602735943147875 | 0.14535504443232472 |
+| 700 | 385 | 0.48137054613414626 | 0.12093399132310226 |
+| 800 | 375 | 0.4041930981990148 | 0.10254953163517916 |
