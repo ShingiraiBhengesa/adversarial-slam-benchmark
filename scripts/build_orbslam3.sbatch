@@ -36,8 +36,26 @@ which python
 python --version
 which cmake
 cmake --version | head -n 1
-which g++
-g++ --version | head -n 1
+echo "CC=$CC"
+echo "CXX=$CXX"
+which "$CC"
+which "$CXX"
+"$CC" --version | head -n 1
+"$CXX" --version | head -n 1
+
+echo ""
+echo "=== COMPILER SANITY TEST ==="
+cat > /tmp/orbslam3_test_compile.c <<'EOC'
+int main(){return 0;}
+EOC
+"$CC" /tmp/orbslam3_test_compile.c -o /tmp/orbslam3_test_compile
+
+cat > /tmp/orbslam3_test_compile.cpp <<'EOCXX'
+#include <iostream>
+int main(){ std::cout << "ok\\n"; return 0; }
+EOCXX
+"$CXX" /tmp/orbslam3_test_compile.cpp -o /tmp/orbslam3_test_compile_cpp
+echo "compiler sanity test passed"
 
 echo ""
 echo "=== CMAKE CONFIG PATHS ==="
