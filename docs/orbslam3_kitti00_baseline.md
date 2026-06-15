@@ -22,7 +22,9 @@
 
 - Evaluation script: `scripts/evaluate_kitti_ate.py`
 - Alignment: first-pose SE(3)
+- Ground-truth path length: 3724.186990597451 m
 - ATE RMSE: 7.392536673666279 m
+- ATE RMSE / path length: 0.19850068464151785%
 - ATE mean: 6.670887441208109 m
 - ATE median: 6.393424498288834 m
 - ATE min: 0.0 m
