@@ -4,18 +4,18 @@ Every system, dataset, dependency, and reused attack repository must be version-
 
 ## Machine
 
-- Machine name:
-- Local / cluster:
-- OS:
-- CPU:
-- GPU:
-- RAM:
-- CUDA:
-- NVIDIA driver:
-- Python:
-- Conda:
-- Compiler:
-- CMake:
+- Machine name: SLU Libra cluster login01
+- Local / cluster: cluster
+- OS: Red Hat Enterprise Linux 9.7 (Plow)
+- CPU: TBD from compute node
+- GPU: not visible on login node; TBD from GPU job
+- RAM: TBD from compute node
+- CUDA: 12.8.93 via module cuda12.8/toolkit/12.8.1
+- NVIDIA driver: TBD from GPU node
+- Python: 3.12.11
+- Conda: 25.7.0
+- Compiler: GCC 14.2.0 via cluster module
+- CMake: 4.1.2 via module cmake/4.1.2
 
 ## Python packages
 
