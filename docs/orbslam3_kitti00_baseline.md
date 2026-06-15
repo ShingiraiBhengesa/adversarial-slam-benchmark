@@ -56,3 +56,19 @@
 ## Notes
 
 This is a first baseline metric set. For paper-quality reporting, label the segment results as KITTI-style unless cross-checked against the official KITTI odometry evaluator.
+
+## Five-run baseline repeat summary
+
+- Repeats: 5
+- ATE RMSE: 7.206066747824011 ± 0.47158506731930333 m
+- ATE RMSE / path length: 0.19349368777715376 ± 0.012662765551513012%
+- KITTI-style mean translation drift: 0.6786799488134423 ± 0.0015298720393951606%
+- KITTI-style mean rotation drift: 0.2524391721734871 ± 0.003485820137255906 deg / 100 m
+
+### Repeat run directories
+
+- `/home/sbhengesa/research/adversarial-slam-benchmark/results/baselines/orbslam3/kitti00_stereo/run_repeat_1_20260615_045541`
+- `/home/sbhengesa/research/adversarial-slam-benchmark/results/baselines/orbslam3/kitti00_stereo/run_repeat_2_20260615_045541`
+- `/home/sbhengesa/research/adversarial-slam-benchmark/results/baselines/orbslam3/kitti00_stereo/run_repeat_3_20260615_045541`
+- `/home/sbhengesa/research/adversarial-slam-benchmark/results/baselines/orbslam3/kitti00_stereo/run_repeat_4_20260615_045541`
+- `/home/sbhengesa/research/adversarial-slam-benchmark/results/baselines/orbslam3/kitti00_stereo/run_repeat_5_20260615_045541`
