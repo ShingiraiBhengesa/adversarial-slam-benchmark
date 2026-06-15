@@ -139,6 +139,27 @@ PATCHPY
 grep -R "monotonic_clock" -n Examples Examples_old || true
 (grep -R "steady_clock" -n Examples Examples_old | head -n 20) || true
 
+echo ""
+echo "=== PATCH ORB_SLAM3 MONO KITTI FOR HEADLESS SLURM RUNS ==="
+python - <<'PY2'
+from pathlib import Path
+
+p = Path("Examples/Monocular/mono_kitti.cc")
+text = p.read_text()
+old = "ORB_SLAM3::System SLAM(argv[1],argv[2],ORB_SLAM3::System::MONOCULAR,true);"
+new = "ORB_SLAM3::System SLAM(argv[1],argv[2],ORB_SLAM3::System::MONOCULAR,false);"
+
+if old in text:
+    p.write_text(text.replace(old, new))
+    print("patched mono_kitti viewer true -> false")
+elif new in text:
+    print("mono_kitti already headless")
+else:
+    raise SystemExit("Could not find mono_kitti viewer constructor")
+PY2
+
+grep -n "System SLAM" Examples/Monocular/mono_kitti.cc
+
 echo "=== BUILD ORB_SLAM3 ==="
 rm -rf build
 mkdir build
