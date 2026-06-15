@@ -68,6 +68,7 @@ python "$REPO_ROOT/scripts/evaluate_kitti_segments.py" \
 
 python "$REPO_ROOT/scripts/compare_attack_to_baseline.py" \
   --attack-run "$RUN_DIR" \
+  --baseline-summary "$REPO_ROOT/results/baselines/orbslam3/kitti00_stereo/repeat_summary.json" \
   > "$RUN_DIR/attack_vs_baseline.txt"
 
 export RUN_DIR ATTACK_NAME ATTACK_SEQ
