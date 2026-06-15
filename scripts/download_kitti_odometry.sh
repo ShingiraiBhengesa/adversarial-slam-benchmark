@@ -41,7 +41,7 @@ fi
 echo ""
 echo "=== VERIFY KITTI 00 ==="
 ls -lh dataset/sequences/00
-ls -lh dataset/sequences/00/image_0 | head
+(ls -lh dataset/sequences/00/image_0 | head) || true
 ls -lh dataset/sequences/00/times.txt
 ls -lh dataset/poses/00.txt
 

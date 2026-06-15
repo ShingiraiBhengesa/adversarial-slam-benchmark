@@ -41,3 +41,6 @@ CMakeCache.txt
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Local datasets
+data/
