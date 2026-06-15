@@ -19,13 +19,13 @@ Every system, dataset, dependency, and reused attack repository must be version-
 
 ## Python packages
 
-- evo:
-- numpy:
-- pandas:
-- matplotlib:
-- opencv-python:
-- torch:
-- torchvision:
+- evo: 1.36.5
+- numpy: 2.2.6
+- pandas: 2.3.3
+- matplotlib: 3.10.9
+- opencv-python: 4.13.0
+- torch: not installed yet
+- torchvision: not installed yet
 
 ## SLAM systems
 
