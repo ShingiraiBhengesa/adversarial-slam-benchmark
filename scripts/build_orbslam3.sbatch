@@ -101,8 +101,21 @@ if [ ! -f ORBvoc.txt ]; then
 fi
 
 echo ""
-echo "=== BUILD ORB_SLAM3 ==="
+echo "=== PATCH ORB_SLAM3 CMAKE FOR C++14 ==="
 cd ..
+python - <<'PATCHPY'
+from pathlib import Path
+p = Path("CMakeLists.txt")
+text = p.read_text()
+text = text.replace("-std=c++11", "-std=c++14")
+text = text.replace("COMPILEDWITHC11", "COMPILEDWITHC14")
+text = text.replace("Using flag -std=c++11.", "Using flag -std=c++14.")
+p.write_text(text)
+PATCHPY
+grep -n "std=c++\|COMPILEDWITH" CMakeLists.txt | head -n 20
+
+echo ""
+echo "=== BUILD ORB_SLAM3 ==="
 rm -rf build
 mkdir build
 cd build
