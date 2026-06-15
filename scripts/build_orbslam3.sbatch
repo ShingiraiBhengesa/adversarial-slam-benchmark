@@ -43,7 +43,7 @@ cd Thirdparty/DBoW2
 rm -rf build
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX"
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j"${SLURM_CPUS_PER_TASK:-4}"
 
 echo ""
@@ -52,7 +52,7 @@ cd ../../g2o
 rm -rf build
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX"
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j"${SLURM_CPUS_PER_TASK:-4}"
 
 echo ""
@@ -61,7 +61,7 @@ cd ../../Sophus
 rm -rf build
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX"
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j"${SLURM_CPUS_PER_TASK:-4}"
 
 echo ""
@@ -77,7 +77,7 @@ cd ..
 rm -rf build
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX"
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j"${SLURM_CPUS_PER_TASK:-4}"
 
 echo ""
