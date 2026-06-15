@@ -21,7 +21,7 @@
 ## ATE evaluation
 
 - Evaluation script: `scripts/evaluate_kitti_ate.py`
-- Alignment: first-pose SE(3)
+- Alignment: first_pose_SE3
 - Ground-truth path length: 3724.186990597451 m
 - ATE RMSE: 7.392536673666279 m
 - ATE RMSE / path length: 0.19850068464151785%
@@ -30,10 +30,6 @@
 - ATE min: 0.0 m
 - ATE max: 12.3034192989908 m
 - ATE std: 3.1857274237186126 m
-
-## Notes
-
-This is a first baseline metric, not the final benchmark metric. For paper-quality reporting, add path-length-normalized drift and KITTI-style segment errors.
 
 ## KITTI-style segment drift evaluation
 
@@ -56,3 +52,7 @@ This is a first baseline metric, not the final benchmark metric. For paper-quali
 | 600 | 399 | 0.5602735943147875 | 0.14535504443232472 |
 | 700 | 385 | 0.48137054613414626 | 0.12093399132310226 |
 | 800 | 375 | 0.4041930981990148 | 0.10254953163517916 |
+
+## Notes
+
+This is a first baseline metric set. For paper-quality reporting, label the segment results as KITTI-style unless cross-checked against the official KITTI odometry evaluator.
