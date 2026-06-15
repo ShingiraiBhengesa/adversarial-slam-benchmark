@@ -17,6 +17,14 @@ echo "USER=$(whoami)"
 source /cm/shared/apps/anaconda/miniforge3/etc/profile.d/conda.sh
 conda activate slam-bench
 
+GCC_EXEC="$CONDA_PREFIX/libexec/gcc/x86_64-conda-linux-gnu/15.2.0"
+GCC_LIB="$CONDA_PREFIX/lib/gcc/x86_64-conda-linux-gnu/15.2.0"
+SYSROOT="$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot"
+
+export PATH="$GCC_EXEC:$CONDA_PREFIX/bin:$PATH"
+export COMPILER_PATH="$GCC_EXEC:$GCC_LIB:${COMPILER_PATH:-}"
+export LIBRARY_PATH="$GCC_LIB:$SYSROOT/usr/lib64:$CONDA_PREFIX/lib:${LIBRARY_PATH:-}"
+
 export CC="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc"
 export CXX="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++"
 export CMAKE_PREFIX_PATH="$CONDA_PREFIX:${CMAKE_PREFIX_PATH:-}"
@@ -46,7 +54,7 @@ cd Thirdparty/DBoW2
 rm -rf build
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_C_COMPILER="$CC" -DCMAKE_CXX_COMPILER="$CXX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j"${SLURM_CPUS_PER_TASK:-4}"
 
 echo ""
@@ -55,7 +63,7 @@ cd ../../g2o
 rm -rf build
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_C_COMPILER="$CC" -DCMAKE_CXX_COMPILER="$CXX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j"${SLURM_CPUS_PER_TASK:-4}"
 
 echo ""
@@ -64,7 +72,7 @@ cd ../../Sophus
 rm -rf build
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_C_COMPILER="$CC" -DCMAKE_CXX_COMPILER="$CXX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j"${SLURM_CPUS_PER_TASK:-4}"
 
 echo ""
@@ -80,7 +88,7 @@ cd ..
 rm -rf build
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DCMAKE_C_COMPILER="$CC" -DCMAKE_CXX_COMPILER="$CXX" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j"${SLURM_CPUS_PER_TASK:-4}"
 
 echo ""
