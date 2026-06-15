@@ -121,20 +121,23 @@ python - <<'PATCHPY'
 from pathlib import Path
 
 patched = []
-for p in Path("Examples").rglob("*.cc"):
-    text = p.read_text()
-    new = text.replace("std::chrono::monotonic_clock", "std::chrono::steady_clock")
-    if new != text:
-        p.write_text(new)
-        patched.append(str(p))
+for root in [Path("Examples"), Path("Examples_old")]:
+    if not root.exists():
+        continue
+    for p in root.rglob("*.cc"):
+        text = p.read_text()
+        new = text.replace("std::chrono::monotonic_clock", "std::chrono::steady_clock")
+        if new != text:
+            p.write_text(new)
+            patched.append(str(p))
 
 print("patched_files=" + str(len(patched)))
 for name in patched:
     print(name)
 PATCHPY
 
-grep -R "monotonic_clock" -n Examples || true
-(grep -R "steady_clock" -n Examples | head -n 20) || true
+grep -R "monotonic_clock" -n Examples Examples_old || true
+(grep -R "steady_clock" -n Examples Examples_old | head -n 20) || true
 
 echo "=== BUILD ORB_SLAM3 ==="
 rm -rf build
