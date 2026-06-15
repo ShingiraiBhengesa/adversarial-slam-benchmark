@@ -1,0 +1,43 @@
+# Data and results
+data/raw/
+data/processed/
+results/
+logs/
+
+# Plot outputs
+plots/*.png
+plots/*.pdf
+plots/*.jpg
+plots/*.jpeg
+
+# Large SLAM builds / external repos
+systems/ORB_SLAM3/
+systems/DROID-SLAM/
+systems/rtabmap/
+systems/LIO-SAM/
+systems/LOAM/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# CMake / build artifacts
+build/
+devel/
+install/
+log/
+CMakeFiles/
+CMakeCache.txt
+*.o
+*.so
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
