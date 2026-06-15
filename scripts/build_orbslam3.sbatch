@@ -17,6 +17,11 @@ echo "USER=$(whoami)"
 source /cm/shared/apps/anaconda/miniforge3/etc/profile.d/conda.sh
 conda activate slam-bench
 
+export CC="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc"
+export CXX="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++"
+export CMAKE_PREFIX_PATH="$CONDA_PREFIX:${CMAKE_PREFIX_PATH:-}"
+export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:${LD_LIBRARY_PATH:-}"
+
 echo ""
 echo "=== ENVIRONMENT ==="
 which python
@@ -32,8 +37,6 @@ find "$CONDA_PREFIX" -name "OpenCVConfig.cmake" | head
 find "$CONDA_PREFIX" -name "Eigen3Config.cmake" | head
 find "$CONDA_PREFIX" -iname "*Pangolin*Config.cmake" | head
 
-export CMAKE_PREFIX_PATH="$CONDA_PREFIX:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:${LD_LIBRARY_PATH:-}"
 
 cd /home/sbhengesa/research/adversarial-slam-benchmark/systems/ORB_SLAM3
 
