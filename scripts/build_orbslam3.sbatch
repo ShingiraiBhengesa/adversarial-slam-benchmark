@@ -115,6 +115,27 @@ PATCHPY
 grep -n "std=c++\|COMPILEDWITH" CMakeLists.txt | head -n 20
 
 echo ""
+echo ""
+echo "=== PATCH ORB_SLAM3 EXAMPLES FOR MODERN CHRONO ==="
+python - <<'PATCHPY'
+from pathlib import Path
+
+patched = []
+for p in Path("Examples").rglob("*.cc"):
+    text = p.read_text()
+    new = text.replace("std::chrono::monotonic_clock", "std::chrono::steady_clock")
+    if new != text:
+        p.write_text(new)
+        patched.append(str(p))
+
+print("patched_files=" + str(len(patched)))
+for name in patched:
+    print(name)
+PATCHPY
+
+grep -R "monotonic_clock" -n Examples || true
+grep -R "steady_clock" -n Examples | head -n 20
+
 echo "=== BUILD ORB_SLAM3 ==="
 rm -rf build
 mkdir build
