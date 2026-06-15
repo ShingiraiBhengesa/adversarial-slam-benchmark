@@ -160,6 +160,27 @@ PY2
 
 grep -n "System SLAM" Examples/Monocular/mono_kitti.cc
 
+echo ""
+echo "=== PATCH ORB_SLAM3 STEREO KITTI FOR HEADLESS SLURM RUNS ==="
+python - <<'PY3'
+from pathlib import Path
+
+p = Path("Examples/Stereo/stereo_kitti.cc")
+text = p.read_text()
+old = "ORB_SLAM3::System SLAM(argv[1],argv[2],ORB_SLAM3::System::STEREO,true);"
+new = "ORB_SLAM3::System SLAM(argv[1],argv[2],ORB_SLAM3::System::STEREO,false);"
+
+if old in text:
+    p.write_text(text.replace(old, new))
+    print("patched stereo_kitti viewer true -> false")
+elif new in text:
+    print("stereo_kitti already headless")
+else:
+    raise SystemExit("Could not find stereo_kitti viewer constructor")
+PY3
+
+grep -n "System SLAM" Examples/Stereo/stereo_kitti.cc
+
 echo "=== BUILD ORB_SLAM3 ==="
 rm -rf build
 mkdir build
