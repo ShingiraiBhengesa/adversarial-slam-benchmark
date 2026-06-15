@@ -161,6 +161,14 @@ PY2
 grep -n "System SLAM" Examples/Monocular/mono_kitti.cc
 
 echo ""
+echo "=== PATCH ORB_SLAM3 STEREO KITTI YAML NUMERIC TYPES ==="
+for f in Examples/Stereo/KITTI*.yaml; do
+  [ -f "$f" ] || continue
+  sed -i -E "s/^(Viewer\.ViewpointY:[[:space:]]*)-100$/\1-100.0/" "$f"
+done
+grep -R "Viewer.ViewpointY" -n Examples/Stereo/KITTI*.yaml || true
+
+
 echo "=== PATCH ORB_SLAM3 SETTINGS PRINT FOR RECTIFIED STEREO ==="
 python - <<'PY'
 from pathlib import Path
