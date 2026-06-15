@@ -31,10 +31,10 @@ Every system, dataset, dependency, and reused attack repository must be version-
 
 ### ORB-SLAM3
 
-- Repository:
-- Commit hash:
-- Build date:
-- Notes:
+- Repository: https://github.com/UZ-SLAMLab/ORB_SLAM3.git
+- Commit hash: 4452a3c4ab75b1cde34e5505a36ec3f9edcdc4c4
+- Build date: not built yet
+- Notes: cloned under systems/ORB_SLAM3; external repo is gitignored
 
 ### DROID-SLAM
 
