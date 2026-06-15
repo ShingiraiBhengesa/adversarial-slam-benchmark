@@ -33,6 +33,13 @@ def translation_errors(est: np.ndarray, gt: np.ndarray) -> np.ndarray:
     return np.linalg.norm(est[:, :3, 3] - gt[:, :3, 3], axis=1)
 
 
+def path_length(poses: np.ndarray) -> float:
+    xyz = poses[:, :3, 3]
+    if len(xyz) < 2:
+        return 0.0
+    return float(np.sum(np.linalg.norm(np.diff(xyz, axis=0), axis=1)))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--estimate", required=True, type=Path)
@@ -50,6 +57,9 @@ def main():
     est_aligned = align_first_pose(est, gt)
     err = translation_errors(est_aligned, gt)
 
+    gt_path_length_m = path_length(gt)
+    ate_rmse_m = float(np.sqrt(np.mean(err ** 2)))
+
     metrics = {
         "estimate": str(args.estimate),
         "groundtruth": str(args.groundtruth),
@@ -57,7 +67,9 @@ def main():
         "num_gt_poses": int(len(gt)),
         "num_evaluated_poses": int(n),
         "alignment": "first_pose_SE3",
-        "ate_rmse_m": float(np.sqrt(np.mean(err ** 2))),
+        "gt_path_length_m": gt_path_length_m,
+        "ate_rmse_m": ate_rmse_m,
+        "ate_rmse_percent_of_path": float(100.0 * ate_rmse_m / gt_path_length_m) if gt_path_length_m > 0 else None,
         "ate_mean_m": float(np.mean(err)),
         "ate_median_m": float(np.median(err)),
         "ate_min_m": float(np.min(err)),
