@@ -55,3 +55,11 @@ local_plans/
 
 *.local
 *.bak
+
+# Third-party local build outputs
+third_party/**/build/
+third_party/**/eval_odometry_local
+third_party/**/*.o
+third_party/**/CMakeCache.txt
+third_party/**/CMakeFiles/
+third_party/**/Makefile

@@ -12,8 +12,8 @@ REQUIRED = [
     "experiments/orbslam3/kitti_patch_stress/README.md",
 
     # Figures
-    "experiments/orbslam3/kitti_patch_stress/figures/kitti00_trajectory_clean_black_checkerboard.png",
-    "experiments/orbslam3/kitti_patch_stress/figures/kitti02_trajectory_clean_black_checkerboard.png",
+    "experiments/orbslam3/kitti_patch_stress/figures/trajectories/kitti00_trajectory_clean_black_checkerboard.png",
+    "experiments/orbslam3/kitti_patch_stress/figures/trajectories/kitti02_trajectory_clean_black_checkerboard.png",
 
     # Curated summaries
     "experiments/orbslam3/kitti_patch_stress/results_summary/summaries/kitti00_clean_repeat_summary.json",
