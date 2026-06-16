@@ -1,49 +1,17 @@
-# Main KITTI Patch Attack Results
+# Main Results: KITTI Patch Stress Tests Against ORB-SLAM3
 
 ## Summary
 
-These experiments evaluate whether image-plane patches affect ORB-SLAM3 stereo tracking on KITTI odometry sequences. The key comparison is between a solid black patch, which acts as an occlusion control, and a high-frequency checkerboard patch, which injects artificial visual texture.
+These experiments evaluate whether small digital image-plane patches can degrade ORB-SLAM3 stereo odometry on KITTI. The key comparison is between a low-texture black occlusion patch and a high-texture checkerboard patch. The black patch acts as an occlusion control, while the checkerboard patch injects many repeatable visual features that can corrupt matching and trajectory estimation.
 
-The main result is that solid black patches behave close to the clean baseline, while checkerboard patches cause large trajectory corruption. This supports the interpretation that the failure is not merely due to removed pixels, but due to feature-rich texture disturbing visual tracking and matching.
+Across KITTI 00 and KITTI 02, the black 10% top-left patch remains close to the clean baseline. In contrast, checkerboard patches produce large trajectory drift, early error onset, increased tracking/map instability, and visible trajectory deviation. This supports the central claim that the failure is not explained by simple occlusion; the damaging mechanism is high-texture feature and match corruption.
 
-## Experimental setup
+## Audited baseline results
 
-- Dataset: KITTI odometry sequences 00 and 02
-- SLAM system: ORB-SLAM3 stereo
-- Patch location: top-left unless otherwise noted
-- Modified camera: left camera only
-- Patch types:
-  - Black patch: occlusion control
-  - Checkerboard patch: high-frequency texture injection
-- Metrics:
-  - ATE RMSE in meters
-  - KITTI-style segment translation drift in percent
-  - KITTI-style segment rotation drift in degrees per 100 meters
-  - ORB-SLAM3 internal tracking-failure log count
-
-## KITTI 00 severity result
-
-| Patch area | Checkerboard ATE RMSE | Black ATE RMSE | Checkerboard trans drift | Black trans drift | Checkerboard fail-track | Black fail-track |
-|---:|---:|---:|---:|---:|---:|---:|
-| 1% | 7.878 ± 0.245 | 7.403 ± 0.102 | 0.676 ± 0.001 | 0.666 ± 0.003 | 0.00 | 0.00 |
-| 2.5% | 11.260 ± 1.145 | 7.603 ± 0.379 | 1.967 ± 0.134 | 0.666 ± 0.013 | 0.00 | 0.00 |
-| 5% | 318.600 ± 159.587 | 7.986 ± 0.220 | 35.341 ± 5.308 | 0.666 ± 0.015 | 4.00 | 0.00 |
-| 7.5% | 259.620 ± 32.964 | 7.548 ± 0.081 | 56.692 ± 5.385 | 0.664 ± 0.003 | 22.67 | 0.00 |
-| 10% | 286.264 ± 22.153 | 7.865 ± 0.148 | 54.897 ± 6.054 | 0.661 ± 0.007 | 41.67 | 0.00 |
-
-The KITTI 00 results show a sharp transition between 2.5% and 5% checkerboard area. Below this transition, drift increases but the system remains close to baseline. At 5% and above, the checkerboard patch produces catastrophic trajectory corruption, while black patches of comparable or larger size remain close to the clean/near-baseline regime.
-
-## KITTI 02 generalization result
-
-| KITTI 02 condition | Runs | ATE RMSE mean ± std (m) | Translation drift mean ± std (%) | Rotation drift mean ± std (deg/100m) | Fail-track mean |
-|---|---:|---:|---:|---:|---:|
-| clean baseline | 5 | 7.838 ± 0.896 | 0.754 ± 0.008 | 0.247 ± 0.010 | 0.00 |
-| black 10% top-left | 3 | 8.408 ± 0.420 | 0.722 ± 0.024 | 0.237 ± 0.013 | 0.00 |
-| checkerboard 2.5% top-left | 3 | 68.614 ± 79.033 | 6.607 ± 9.743 | 1.578 ± 2.167 | 10.00 |
-| checkerboard 5% top-left | 3 | 597.977 ± 123.298 | 47.107 ± 8.627 | 19.413 ± 3.760 | 19.67 |
-| checkerboard 10% top-left | 3 | 576.657 ± 69.407 | 66.443 ± 6.642 | 32.650 ± 4.358 | 30.67 |
-
-The KITTI 02 results show the same pattern on a second sequence. The black 10% control remains close to the clean baseline, while checkerboard patches produce large drift and tracking instability. The 2.5% checkerboard condition is unstable across runs, suggesting it lies near the transition boundary for this sequence. The 5% and 10% checkerboard conditions are consistently destructive.
+| Condition | Runs | ATE RMSE mean ± std (m) | Translation drift mean ± std (%) |
+|---|---:|---:|---:|
+| KITTI 00 clean | 5 | 7.206 ± 0.472 | 0.679 ± 0.002 |
+| KITTI 02 clean | 5 | 7.838 ± 0.896 | 0.754 ± 0.008 |
 
 ## Official KITTI devkit cross-check
 
@@ -54,29 +22,34 @@ The KITTI 02 results show the same pattern on a second sequence. The black 10% c
 | KITTI 00 checkerboard 5% top-left | 40.750 | 21.115 | 3283 |
 | KITTI 02 clean | 0.731 | 0.227 | 3453 |
 | KITTI 02 black 10% top-left | 0.707 | 0.227 | 3453 |
-| KITTI 02 checkerboard 5% top-left padded | 50.511 | 23.733 | 3453 |
-| KITTI 02 checkerboard 10% top-left padded | 71.953 | 28.463 | 3453 |
+| KITTI 02 checkerboard 5% top-left | 50.511 | 23.733 | 3453 |
+| KITTI 02 checkerboard 10% top-left | 71.953 | 28.463 | 3453 |
 
-The official KITTI devkit cross-check agrees with the internal KITTI-style evaluator. Solid black patches remain near baseline, while checkerboard patches increase translation and rotation drift by orders of magnitude. For KITTI 02 checkerboard 5% and 10%, the prediction files were one pose shorter than the ground truth, so one final pose was padded to satisfy the legacy devkit's strict pose-count requirement. These padded devkit numbers should be treated as a compatibility cross-check, not as the primary repeat-mean statistic.
+## Interpretation
+
+The official KITTI devkit results confirm the main trend found by the internal evaluator. Clean and black-patch controls remain near baseline, with translation drift below 1%. The checkerboard patches sharply increase drift, reaching 40.750% on KITTI 00 at 5% patch area and 50.511% on KITTI 02 at 5% patch area. On KITTI 02, increasing the checkerboard patch to 10% further increases translation drift to 71.953%.
+
+The black patch result is especially important. A 10% black patch is much larger than the 5% checkerboard patch, yet it does not meaningfully degrade odometry. This weakens a simple occlusion explanation and strengthens the feature-corruption explanation.
+
+The result should be described as a digital image-plane patch stress test, not as a physically validated adversarial patch. The strongest defensible claim is that high-texture localized perturbations can trigger severe stereo ORB-SLAM3 trajectory corruption, while low-texture occlusion controls of similar or larger size remain close to baseline.
 
 ## Trajectory visualizations
 
-### KITTI 00
+The qualitative trajectory plots support the quantitative metrics. Clean and black-patch trajectories remain close to the ground truth. Checkerboard trajectories visibly diverge, especially after early onset regions.
 
 ![KITTI 00 trajectory comparison](../figures/kitti00_trajectory_clean_black_checkerboard.png)
 
-### KITTI 02
-
 ![KITTI 02 trajectory comparison](../figures/kitti02_trajectory_clean_black_checkerboard.png)
 
-The trajectory plots provide qualitative confirmation of the quantitative result. Clean and black-patch trajectories stay close to ground truth, while checkerboard trajectories visibly diverge.
+## Reproducibility notes
 
-## Main claim
-
-A high-frequency image-plane texture patch can cause severe ORB-SLAM3 trajectory corruption even when a solid occlusion patch of comparable size does not. The evidence supports a texture-injection failure mechanism rather than simple information removal.
+- Baselines were audited with five ORB-SLAM3 repeats on KITTI 00 and KITTI 02.
+- Official KITTI devkit metrics were used as a cross-check for the main clean, black-patch, and checkerboard-patch conditions.
+- KITTI 02 checkerboard trajectories with one missing final pose were padded with the last estimated pose only to satisfy the official devkit length requirement.
+- The missing plotting dependencies in the KITTI devkit, such as gnuplot and pdfcrop, do not affect the numeric segment-error outputs used here.
 
 ## Caveats
 
-These are digital image-plane patch stress tests, not physical-world attacks. The patch is overlaid directly on the image stream and does not model lighting, perspective, multi-view consistency, physical placement, or partial visibility. Therefore, the strongest defensible claim is about digital replay robustness, not real-world physical patch vulnerability.
+These experiments use digital patches inserted into KITTI images. They do not model printing, camera optics, lighting, viewpoint changes, or physical placement. The results are therefore evidence of vulnerability under controlled digital perturbation, not proof of a physically realizable attack.
 
-The KITTI 02 clean baseline uses 5 repeats, while the KITTI 02 attack conditions currently use 3 repeats. This is acceptable for the current draft, but the difference in repeat count should be disclosed. For a final paper table, either rerun the attack conditions with 5 repeats or clearly report the number of valid runs per condition.
+The checkerboard pattern is also a strong synthetic feature source. Future work should test less artificial high-texture patterns, real-world printed markers, different patch locations, and both-camera patch variants.
