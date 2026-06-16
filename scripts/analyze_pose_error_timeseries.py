@@ -51,7 +51,7 @@ def main():
     first_crossing = {}
     for th in args.thresholds:
         idx = np.where(err >= th)[0]
-        first_crossing[str(th)] = int(idx[0]) if len(idx) else None
+        first_crossing[f"{th:g}"] = int(idx[0]) if len(idx) else None
 
     summary = {
         "estimate": str(args.estimate),
