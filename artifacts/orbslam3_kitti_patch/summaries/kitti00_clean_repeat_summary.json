@@ -1,0 +1,34 @@
+{
+  "num_runs": 5,
+  "runs": [
+    "/home/sbhengesa/research/adversarial-slam-benchmark/results/baselines/orbslam3/kitti00_stereo/run_repeat_1_20260615_045541",
+    "/home/sbhengesa/research/adversarial-slam-benchmark/results/baselines/orbslam3/kitti00_stereo/run_repeat_2_20260615_045541",
+    "/home/sbhengesa/research/adversarial-slam-benchmark/results/baselines/orbslam3/kitti00_stereo/run_repeat_3_20260615_045541",
+    "/home/sbhengesa/research/adversarial-slam-benchmark/results/baselines/orbslam3/kitti00_stereo/run_repeat_4_20260615_045541",
+    "/home/sbhengesa/research/adversarial-slam-benchmark/results/baselines/orbslam3/kitti00_stereo/run_repeat_5_20260615_045541"
+  ],
+  "ate_rmse_m": {
+    "mean": 7.206066747824011,
+    "std": 0.47158506731930333,
+    "min": 6.7996309019177446,
+    "max": 8.02237081226805
+  },
+  "ate_rmse_percent_of_path": {
+    "mean": 0.19349368777715376,
+    "std": 0.012662765551513012,
+    "min": 0.1825802764223425,
+    "max": 0.21541267483405996
+  },
+  "segment_translation_error_percent_mean": {
+    "mean": 0.6786799488134423,
+    "std": 0.0015298720393951606,
+    "min": 0.677067680976559,
+    "max": 0.6808496805421846
+  },
+  "segment_rotation_error_deg_per_100m_mean": {
+    "mean": 0.2524391721734871,
+    "std": 0.003485820137255906,
+    "min": 0.24954586023033068,
+    "max": 0.2584436381535645
+  }
+}

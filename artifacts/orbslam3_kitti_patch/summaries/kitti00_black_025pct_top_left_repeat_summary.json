@@ -1,0 +1,50 @@
+{
+  "attack_root": "results/attacks/orbslam3/seq00_black_025pct_top_left_leftonly",
+  "num_valid_runs": 2,
+  "runs": [
+    {
+      "run_dir": "results/attacks/orbslam3/seq00_black_025pct_top_left_leftonly/run_repeat_manual_20260615_203211_job117669_pid2638663",
+      "num_est_poses": 4541,
+      "num_evaluated_poses": 4541,
+      "ate_rmse_m": 7.871210498549175,
+      "ate_rmse_percent_of_path": 0.2113537939534674,
+      "segment_translation_error_percent_mean": 0.6570412802961613,
+      "segment_rotation_error_deg_per_100m_mean": 0.24150757335641063,
+      "num_segments_total": 3283
+    },
+    {
+      "run_dir": "results/attacks/orbslam3/seq00_black_025pct_top_left_leftonly/run_repeat_manual_20260615_203211_job117670_pid2230637",
+      "num_est_poses": 4541,
+      "num_evaluated_poses": 4541,
+      "ate_rmse_m": 7.334955581867267,
+      "ate_rmse_percent_of_path": 0.19695454606296664,
+      "segment_translation_error_percent_mean": 0.6754517539668035,
+      "segment_rotation_error_deg_per_100m_mean": 0.25121995724457064,
+      "num_segments_total": 3283
+    }
+  ],
+  "ate_rmse_m": {
+    "mean": 7.603083040208221,
+    "std": 0.379189488030404,
+    "min": 7.334955581867267,
+    "max": 7.871210498549175
+  },
+  "ate_rmse_percent_of_path": {
+    "mean": 0.204154170008217,
+    "std": 0.010181805827359178,
+    "min": 0.19695454606296664,
+    "max": 0.2113537939534674
+  },
+  "segment_translation_error_percent_mean": {
+    "mean": 0.6662465171314824,
+    "std": 0.013018170777367482,
+    "min": 0.6570412802961613,
+    "max": 0.6754517539668035
+  },
+  "segment_rotation_error_deg_per_100m_mean": {
+    "mean": 0.24636376530049064,
+    "std": 0.006867692508804909,
+    "min": 0.24150757335641063,
+    "max": 0.25121995724457064
+  }
+}

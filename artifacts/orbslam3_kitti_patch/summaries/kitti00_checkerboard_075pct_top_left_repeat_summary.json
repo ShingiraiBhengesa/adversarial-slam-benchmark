@@ -1,0 +1,60 @@
+{
+  "attack_root": "results/attacks/orbslam3/seq00_checkerboard_075pct_top_left_leftonly",
+  "num_valid_runs": 3,
+  "runs": [
+    {
+      "run_dir": "results/attacks/orbslam3/seq00_checkerboard_075pct_top_left_leftonly/run_repeat_1_20260615_195603_job117650_pid1789824",
+      "num_est_poses": 4540,
+      "num_evaluated_poses": 4540,
+      "ate_rmse_m": 230.646783142776,
+      "ate_rmse_percent_of_path": 6.195101498498646,
+      "segment_translation_error_percent_mean": 53.22234422048596,
+      "segment_rotation_error_deg_per_100m_mean": 33.30141699488552,
+      "num_segments_total": 3282
+    },
+    {
+      "run_dir": "results/attacks/orbslam3/seq00_checkerboard_075pct_top_left_leftonly/run_repeat_2_20260615_195603_job117651_pid1789821",
+      "num_est_poses": 4540,
+      "num_evaluated_poses": 4540,
+      "ate_rmse_m": 295.4843873618101,
+      "ate_rmse_percent_of_path": 7.936619561673857,
+      "segment_translation_error_percent_mean": 62.895803147708335,
+      "segment_rotation_error_deg_per_100m_mean": 30.576530804175864,
+      "num_segments_total": 3282
+    },
+    {
+      "run_dir": "results/attacks/orbslam3/seq00_checkerboard_075pct_top_left_leftonly/run_repeat_3_20260615_195603_job117642_pid1789825",
+      "num_est_poses": 4541,
+      "num_evaluated_poses": 4541,
+      "ate_rmse_m": 252.72832130601228,
+      "ate_rmse_percent_of_path": 6.786134046010092,
+      "segment_translation_error_percent_mean": 53.958387272545316,
+      "segment_rotation_error_deg_per_100m_mean": 31.347351062173118,
+      "num_segments_total": 3283
+    }
+  ],
+  "ate_rmse_m": {
+    "mean": 259.6198306035328,
+    "std": 32.9635921209201,
+    "min": 230.646783142776,
+    "max": 295.4843873618101
+  },
+  "ate_rmse_percent_of_path": {
+    "mean": 6.972618368727532,
+    "std": 0.8856091649570487,
+    "min": 6.195101498498646,
+    "max": 7.936619561673857
+  },
+  "segment_translation_error_percent_mean": {
+    "mean": 56.69217821357987,
+    "std": 5.385086961797972,
+    "min": 53.22234422048596,
+    "max": 62.895803147708335
+  },
+  "segment_rotation_error_deg_per_100m_mean": {
+    "mean": 31.741766287078168,
+    "std": 1.404608029062814,
+    "min": 30.576530804175864,
+    "max": 33.30141699488552
+  }
+}

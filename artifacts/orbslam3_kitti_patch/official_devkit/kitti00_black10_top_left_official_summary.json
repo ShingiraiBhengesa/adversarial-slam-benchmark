@@ -1,0 +1,15 @@
+{
+  "sequence": "00",
+  "condition": "black10_top_left",
+  "result_sha": "kitti00_black10_top_left",
+  "prediction": "results/official_kitti_eval_inputs/kitti00_black10_top_left/predictions/00.txt",
+  "groundtruth": "results/official_kitti_eval_inputs/kitti00_black10_top_left/groundtruth/00.txt",
+  "output_dir": "results/official_kitti_devkit_eval/kitti00_black10_top_left",
+  "devkit_binary": "external/kitti_odometry_devkit/devkit/cpp/eval_odometry_local",
+  "note": "Official KITTI odometry devkit evaluation. Non-target sequences are represented by one-pose identity placeholders so the legacy devkit can complete its 00-21 loop.",
+  "target_sequence_metrics": {
+    "num_segments": 3283,
+    "translation_error_percent_mean": 0.6677021626561057,
+    "rotation_error_deg_per_100m_mean": 0.2522131243409258
+  }
+}
