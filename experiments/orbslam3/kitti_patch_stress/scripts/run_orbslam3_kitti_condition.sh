@@ -65,12 +65,12 @@ echo "=== TRAJECTORY CHECK ==="
 wc -l "$TRAJ"
 ls -lh "$TRAJ"
 
-python experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_ate.py \
+python experiments/orbslam3/kitti_patch_stress/shared/evaluation/evaluate_kitti_ate.py \
   --estimate "$TRAJ" \
   --groundtruth "$KITTI_GT" \
   --output-json "$RUN_DIR/ate_metrics.json"
 
-python experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_segments.py \
+python experiments/orbslam3/kitti_patch_stress/shared/evaluation/evaluate_kitti_segments.py \
   --estimate "$TRAJ" \
   --groundtruth "$KITTI_GT" \
   --output-json "$RUN_DIR/kitti_segment_metrics.json"

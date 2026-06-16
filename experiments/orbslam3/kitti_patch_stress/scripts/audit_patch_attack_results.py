@@ -6,7 +6,7 @@ from pathlib import Path
 REQUIRED = [
     # Canonical docs
     "README.md",
-    "docs/attacks/README.md",
+    "experiments/orbslam3/kitti_patch_stress/docs/README.md",
     "experiments/orbslam3/kitti_patch_stress/docs/main_results.md",
     "experiments/orbslam3/kitti_patch_stress/docs/mechanism.md",
     "experiments/orbslam3/kitti_patch_stress/README.md",

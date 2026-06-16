@@ -27,18 +27,18 @@ This is the first validated system-level experiment in the benchmark.
 
 - Main results: `../../../experiments/orbslam3/kitti_patch_stress/docs/main_results.md`
 - Mechanism summary: `../../../experiments/orbslam3/kitti_patch_stress/docs/mechanism.md`
-- Attack docs index: `../../../docs/attacks/README.md`
+- Attack docs index: `../../../experiments/orbslam3/kitti_patch_stress/docs/README.md`
 
 ## Canonical scripts
 
-- Patch generation: `../../../experiments/orbslam3/kitti_patch_stress/scripts/create_kitti_patch_attack.py`
+- Patch generation: `../../../shared/patching/create_kitti_patch_attack.py`
 - ORB-SLAM3 KITTI condition runner: `../../../experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti_condition.sh`
-- ATE evaluator: `../../../experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_ate.py`
-- KITTI segment evaluator: `../../../experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_segments.py`
-- Official KITTI devkit wrapper: `../../../experiments/orbslam3/kitti_patch_stress/scripts/run_kitti_official_devkit_eval.py`
+- ATE evaluator: `../../../shared/evaluation/evaluate_kitti_ate.py`
+- KITTI segment evaluator: `../../../shared/evaluation/evaluate_kitti_segments.py`
+- Official KITTI devkit wrapper: `../../../shared/evaluation/run_kitti_official_devkit_eval.py`
 - Result audit: `../../../experiments/orbslam3/kitti_patch_stress/scripts/audit_patch_attack_results.py`
-- ORB keypoint diagnostic: `../../../experiments/orbslam3/kitti_patch_stress/scripts/orb_patch_feature_diagnostics.py`
-- ORB match diagnostic: `../../../experiments/orbslam3/kitti_patch_stress/scripts/orb_patch_match_diagnostics.py`
+- ORB keypoint diagnostic: `../../../shared/diagnostics/orb_patch_feature_diagnostics.py`
+- ORB match diagnostic: `../../../shared/diagnostics/orb_patch_match_diagnostics.py`
 
 ## Important caveats
 

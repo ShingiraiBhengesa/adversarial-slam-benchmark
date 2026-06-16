@@ -59,12 +59,12 @@ echo "=== TRAJECTORY CHECK ==="
 wc -l CameraTrajectory.txt
 ls -lh CameraTrajectory.txt
 
-python "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_ate.py" \
+python "$REPO_ROOT/shared/evaluation/evaluate_kitti_ate.py" \
   --estimate "$RUN_DIR/CameraTrajectory.txt" \
   --groundtruth "$KITTI_GT" \
   --output-json "$RUN_DIR/ate_metrics.json"
 
-python "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_segments.py" \
+python "$REPO_ROOT/shared/evaluation/evaluate_kitti_segments.py" \
   --estimate "$RUN_DIR/CameraTrajectory.txt" \
   --groundtruth "$KITTI_GT" \
   --output-json "$RUN_DIR/kitti_segment_metrics.json"

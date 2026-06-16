@@ -54,8 +54,8 @@ test -d "$KITTI_SEQUENCE_DIR"
 test -f "$KITTI_GT"
 test -f "$SETTINGS_YAML"
 test -x "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_stereo_kitti.sh"
-test -f "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_ate.py"
-test -f "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_segments.py"
+test -f "$REPO_ROOT/shared/evaluation/evaluate_kitti_ate.py"
+test -f "$REPO_ROOT/shared/evaluation/evaluate_kitti_segments.py"
 
 mkdir -p "$RUN_DIR"
 
@@ -107,14 +107,14 @@ ls -lh "$TRAJECTORY_FILE"
 echo ""
 echo "=== EVALUATE ATE ==="
 cd "$REPO_ROOT"
-python "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_ate.py" \
+python "$REPO_ROOT/shared/evaluation/evaluate_kitti_ate.py" \
   --estimate "$TRAJECTORY_FILE" \
   --groundtruth "$KITTI_GT" \
   --output-json "$ATE_JSON"
 
 echo ""
 echo "=== EVALUATE KITTI-STYLE SEGMENT DRIFT ==="
-python "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_segments.py" \
+python "$REPO_ROOT/shared/evaluation/evaluate_kitti_segments.py" \
   --estimate "$TRAJECTORY_FILE" \
   --groundtruth "$KITTI_GT" \
   --output-json "$SEGMENT_JSON"
