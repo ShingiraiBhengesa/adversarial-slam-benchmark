@@ -29,7 +29,10 @@ source "$REPO_ROOT/scripts/orbslam3_env.sh"
 
 ATTACK_SEQ="$(realpath "$ATTACK_SEQ_INPUT")"
 RUN_TAG="${RUN_TAG:-$(date +%Y%m%d_%H%M%S)}"
-RUN_DIR="$REPO_ROOT/results/attacks/orbslam3/${ATTACK_NAME}/run_${RUN_TAG}"
+REPO_ROOT="${REPO_ROOT:-$(pwd)}"
+RUN_REPEAT_ID="${SLURM_ARRAY_TASK_ID:-manual}"
+RUN_STAMP="$(date +%Y%m%d_%H%M%S)"
+RUN_DIR="${REPO_ROOT}/results/attacks/orbslam3/${ATTACK_NAME}/run_repeat_${RUN_REPEAT_ID}_${RUN_STAMP}_job${SLURM_JOB_ID:-local}_pid$$"
 
 KITTI_GT="$REPO_ROOT/data/kitti/dataset/poses/00.txt"
 SETTINGS_YAML="$REPO_ROOT/systems/ORB_SLAM3/Examples/Stereo/KITTI00-02.yaml"
