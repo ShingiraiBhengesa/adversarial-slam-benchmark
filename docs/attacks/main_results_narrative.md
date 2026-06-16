@@ -53,3 +53,7 @@ The qualitative trajectory plots support the quantitative metrics. Clean and bla
 These experiments use digital patches inserted into KITTI images. They do not model printing, camera optics, lighting, viewpoint changes, or physical placement. The results are therefore evidence of vulnerability under controlled digital perturbation, not proof of a physically realizable attack.
 
 The checkerboard pattern is also a strong synthetic feature source. Future work should test less artificial high-texture patterns, real-world printed markers, different patch locations, and both-camera patch variants.
+
+## Mechanism diagnostic
+
+A separate ORB feature/match proxy diagnostic supports the interpretation that the checkerboard patch acts as a feature-injection perturbation rather than simple occlusion. See [ORB feature and match mechanism summary](orb_feature_match_mechanism_summary.md).
