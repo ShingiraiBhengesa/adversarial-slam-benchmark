@@ -34,3 +34,23 @@ High-frequency checkerboard patches inject many ORB features. Catastrophic failu
 ## Caveat
 
 These diagnostics use an external ORB/BFMatcher pipeline. They should be treated as supporting evidence. A stronger future diagnostic would instrument ORB-SLAM3 directly to count patch-region matches, inliers, outliers, and map points.
+
+## Absolute match-count location diagnostic
+
+| Location | Temporal total | Temporal patch | Stereo total | Stereo patch |
+|---|---:|---:|---:|---:|
+| bottom_right | 1179.32 | 624.62 | 499.75 | 1.16 |
+| top_left | 1132.15 | 574.04 | 499.39 | 1.34 |
+| center | 1191.61 | 857.56 | 308.24 | 2.62 |
+| bottom_left | 1170.83 | 630.83 | 490.96 | 1.40 |
+| top_right | 1126.35 | 543.60 | 515.41 | 1.01 |
+
+## Refined interpretation
+
+The center checkerboard patch produces the highest number of patch-region temporal matches, yet the center condition remains close to clean baseline performance. Therefore, temporal patch match count alone does not explain failure.
+
+The corner conditions produce fewer patch-region temporal matches than the center condition but cause severe degradation. This suggests that the attack depends on where injected features enter the image geometry, not only how many injected features are detected or matched.
+
+Stereo patch match counts are low for all locations, so stereo diagnostics should be treated as supporting evidence rather than the primary mechanism.
+
+The current best hypothesis is spatially sensitive feature-track pollution: injected textured features become harmful when they affect high-leverage image regions for tracking and mapping. Center-region feature pollution is abundant but appears less damaging or more easily rejected by the downstream SLAM pipeline.
