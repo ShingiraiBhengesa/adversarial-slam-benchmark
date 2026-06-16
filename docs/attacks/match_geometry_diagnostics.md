@@ -54,3 +54,21 @@ The corner conditions produce fewer patch-region temporal matches than the cente
 Stereo patch match counts are low for all locations, so stereo diagnostics should be treated as supporting evidence rather than the primary mechanism.
 
 The current best hypothesis is spatially sensitive feature-track pollution: injected textured features become harmful when they affect high-leverage image regions for tracking and mapping. Center-region feature pollution is abundant but appears less damaging or more easily rejected by the downstream SLAM pipeline.
+
+## External temporal RANSAC inlier diagnostic
+
+| Location | Total RANSAC inliers | Patch RANSAC inliers | Patch fraction of all inliers |
+|---|---:|---:|---:|
+| bottom-right | 977.23 | 565.38 | 0.5842 |
+| top-left | 939.44 | 521.11 | 0.5618 |
+| center | 1058.83 | 803.61 | 0.7615 |
+| bottom-left | 973.41 | 574.89 | 0.5975 |
+| top-right | 927.32 | 489.58 | 0.5326 |
+
+## Interpretation update
+
+This diagnostic does not support the hypothesis that center patches survive because generic epipolar RANSAC rejects their patch-region temporal matches. The center patch has the highest patch-region RANSAC inlier count and the highest patch fraction of all RANSAC inliers, yet it remains close to clean baseline performance.
+
+Therefore, the current evidence suggests that generic external temporal match geometry is insufficient to explain the center-vs-corner difference. The failure mechanism is likely downstream and ORB-SLAM3-specific, involving how spatially localized injected features affect tracking, local mapping, keyframe creation, map-point quality, or pose optimization.
+
+This is an important negative result: raw keypoint count, temporal match count, and external RANSAC inlier count all fail to fully explain the observed SLAM degradation.
