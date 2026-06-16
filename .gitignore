@@ -52,3 +52,5 @@ scripts/*.bak
 local_mechanism/
 
 local_plans/
+
+*.local

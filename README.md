@@ -1,5 +1,10 @@
 # Adversarial SLAM Benchmark
 
+## Quick start
+
+New readers should begin with `START_HERE.md`.
+
+
 This repository contains reproducible experiments for studying how visual SLAM systems respond to controlled image-plane perturbations.
 
 The current validated experiment block is ORB-SLAM3 stereo on KITTI Odometry sequences 00 and 02 under digital patch stress tests.
