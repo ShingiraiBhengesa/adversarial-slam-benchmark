@@ -53,3 +53,9 @@ A contact sheet was generated locally for frames 200, 240, 247, 282, 347, and 40
 Local artifact:
 
 `results/diagnostics/failure_onset_frames/bottom_right_onset_contact_sheet.png`
+
+## Visual inspection of bottom-right failure onset
+
+The bottom-right contact sheet shows that during the early divergence window, especially frames 240–400, the checkerboard patch overlaps visually important right-side scene structure such as parked cars, building edges, sidewalk boundaries, shadows, and façade lines. This suggests the observed failure is not simply caused by adding many features anywhere in the image.
+
+The stronger interpretation is that the checkerboard patch becomes harmful when placed over spatial regions that contribute important tracking and mapping constraints. This supports a placement-sensitive mechanism rather than a pure keypoint-count or pure temporal-RANSAC explanation.
