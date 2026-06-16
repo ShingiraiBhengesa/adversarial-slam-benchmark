@@ -1,0 +1,38 @@
+{
+  "frame_index": 120,
+  "frame": "000120.png",
+  "area_fraction": 0.05,
+  "location": "top_left",
+  "patch_rect_xywh": [
+    0,
+    0,
+    153,
+    153
+  ],
+  "conditions": [
+    {
+      "title": "clean",
+      "total_keypoints": 2000,
+      "patch_keypoints": 18,
+      "outside_keypoints": 1982,
+      "patch_keypoint_fraction": 0.009,
+      "image_path": "data/kitti/dataset/sequences/00/image_0/000120.png"
+    },
+    {
+      "title": "black patch",
+      "total_keypoints": 2000,
+      "patch_keypoints": 8,
+      "outside_keypoints": 1992,
+      "patch_keypoint_fraction": 0.004,
+      "image_path": "data/kitti_attacks/seq00_black_05pct_top_left_leftonly/image_0/000120.png"
+    },
+    {
+      "title": "checkerboard patch",
+      "total_keypoints": 2001,
+      "patch_keypoints": 405,
+      "outside_keypoints": 1596,
+      "patch_keypoint_fraction": 0.20239880059970014,
+      "image_path": "data/kitti_attacks/seq00_checkerboard_05pct_top_left_leftonly/image_0/000120.png"
+    }
+  ]
+}
