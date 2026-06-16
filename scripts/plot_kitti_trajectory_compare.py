@@ -31,16 +31,39 @@ def align_first_pose(est: np.ndarray, gt: np.ndarray) -> np.ndarray:
     return np.array([T_align @ T for T in est])
 
 
+def run_ate_rmse(run):
+    """Support both summary schemas:
+    1) runs as dicts with ate_rmse_m and run_dir
+    2) runs as strings pointing to run dirs
+    """
+    if isinstance(run, dict):
+        return float(run["ate_rmse_m"])
+
+    run_dir = Path(run)
+    summary_path = run_dir / "run_summary.json"
+    ate_path = run_dir / "ate_metrics.json"
+
+    if summary_path.exists():
+        return float(json.loads(summary_path.read_text())["ate_rmse_m"])
+    if ate_path.exists():
+        return float(json.loads(ate_path.read_text())["ate_rmse_m"])
+
+    raise FileNotFoundError(f"Could not find run_summary.json or ate_metrics.json in {run_dir}")
+
+
+def run_dir_from_record(run):
+    if isinstance(run, dict):
+        return Path(run["run_dir"])
+    return Path(run)
+
+
 def representative_run(summary_path: Path) -> Path:
     d = json.loads(summary_path.read_text())
     target = d["ate_rmse_m"]["mean"]
     runs = d["runs"]
 
-    def dist(run):
-        return abs(float(run["ate_rmse_m"]) - target)
-
-    chosen = min(runs, key=dist)
-    return Path(chosen["run_dir"])
+    chosen = min(runs, key=lambda run: abs(run_ate_rmse(run) - target))
+    return run_dir_from_record(chosen)
 
 
 def plot_sequence(seq, gt_path, conditions, output):
