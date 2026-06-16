@@ -104,8 +104,8 @@ def main():
         if len(matches) < 8:
             continue
 
-        pts0 = np.float32([kp0[m.queryIdx].pt for m in matches])
-        pts1 = np.float32([kp1[m.trainIdx].pt for m in matches])
+        pts0 = np.asarray([kp0[m.queryIdx].pt for m in matches], dtype=np.float32).reshape(-1, 1, 2)
+        pts1 = np.asarray([kp1[m.trainIdx].pt for m in matches], dtype=np.float32).reshape(-1, 1, 2)
 
         F, mask = cv2.findFundamentalMat(
             pts0,
@@ -113,6 +113,7 @@ def main():
             cv2.FM_RANSAC,
             args.ransac_threshold,
             0.99,
+            2000,
         )
 
         if mask is None:
