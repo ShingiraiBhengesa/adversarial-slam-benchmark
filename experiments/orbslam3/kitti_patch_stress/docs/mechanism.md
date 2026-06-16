@@ -102,4 +102,4 @@ Representative match overlays are stored in:
 - `experiments/orbslam3/kitti_patch_stress/figures/mechanism/kitti00_000120_000121_checkerboard5_orb_matches.png`
 - `experiments/orbslam3/kitti_patch_stress/figures/mechanism/kitti00_000120_000121_checkerboard10_orb_matches.png`
 
-The corrected diagnostic should be treated as the canonical match diagnostic going forward.
+The corrected diagnostic should be treated as the main match diagnostic going forward.

@@ -15,7 +15,7 @@ Large raw outputs are intentionally not committed. Full trajectories, raw run fo
 
   Curated ORB keypoint and match diagnostic summaries.
 
-## Canonical docs
+## Main docs
 
 - `../../experiments/orbslam3/kitti_patch_stress/docs/main_results.md`
 - `../../experiments/orbslam3/kitti_patch_stress/docs/mechanism.md`

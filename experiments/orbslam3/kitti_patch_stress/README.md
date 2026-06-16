@@ -2,16 +2,18 @@
 
 ## Purpose
 
-This experiment block evaluates whether controlled digital image-plane patches degrade ORB-SLAM3 stereo odometry on KITTI.
+This experiment tests how ORB-SLAM3 stereo odometry behaves when KITTI images are changed with simple digital patches.
 
-The central comparison is:
+The main comparison is:
 
-- black patch: low-texture occlusion control
-- checkerboard patch: high-texture feature-injection perturbation
+- black patch: removes image content
+- checkerboard patch: adds repeated high-texture pattern
+
+The goal is to test whether ORB-SLAM3 is only affected by missing image content, or whether added repeated texture can cause much larger trajectory error.
 
 ## Current status
 
-This is the first validated system-level experiment in the benchmark.
+This is the first completed system experiment in the benchmark.
 
 ## System
 
@@ -19,39 +21,59 @@ This is the first validated system-level experiment in the benchmark.
 - Mode: stereo
 - Dataset: KITTI Odometry
 - Sequences: 00 and 02
-- Camera modified: left camera only
+- Camera changed: left camera only
 - Patch location: top-left
-- Patch types: black, checkerboard
+- Patch types: black and checkerboard
 
-## Canonical documents
+## Main documents
 
-- Main results: `../../../experiments/orbslam3/kitti_patch_stress/docs/main_results.md`
-- Mechanism summary: `../../../experiments/orbslam3/kitti_patch_stress/docs/mechanism.md`
-- Attack docs index: `../../../experiments/orbslam3/kitti_patch_stress/docs/README.md`
+- Main results: `docs/main_results.md`
+- Mechanism summary: `docs/mechanism.md`
+- Official KITTI devkit results: `docs/official_kitti_devkit_results.md`
+- Severity/onset notes: `docs/severity_onset.md`
+- Trajectory visualization notes: `docs/trajectory_visualization.md`
+- Full run instructions: `RUNBOOK.md`
 
-## Canonical scripts
+## Main scripts
+
+ORB-SLAM3-specific scripts are in:
+
+- `scripts/`
+
+Shared benchmark scripts are in:
+
+- `../../../shared/patching/`
+- `../../../shared/evaluation/`
+- `../../../shared/diagnostics/`
+- `../../../shared/plotting/`
+- `../../../shared/cluster/`
+- `../../../shared/data/`
+
+Important scripts:
 
 - Patch generation: `../../../shared/patching/create_kitti_patch_attack.py`
-- ORB-SLAM3 KITTI condition runner: `../../../experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti_condition.sh`
+- ORB-SLAM3 KITTI condition runner: `scripts/run_orbslam3_kitti_condition.sh`
 - ATE evaluator: `../../../shared/evaluation/evaluate_kitti_ate.py`
 - KITTI segment evaluator: `../../../shared/evaluation/evaluate_kitti_segments.py`
 - Official KITTI devkit wrapper: `../../../shared/evaluation/run_kitti_official_devkit_eval.py`
-- Result audit: `../../../experiments/orbslam3/kitti_patch_stress/scripts/audit_patch_attack_results.py`
+- Result audit: `scripts/audit_patch_attack_results.py`
 - ORB keypoint diagnostic: `../../../shared/diagnostics/orb_patch_feature_diagnostics.py`
 - ORB match diagnostic: `../../../shared/diagnostics/orb_patch_match_diagnostics.py`
 
 ## Important caveats
 
-These are digital image-plane patch stress tests. They should not be described as physically validated adversarial patches.
+These are digital patch tests on saved images. They are not printed physical patch experiments.
 
-The ORB keypoint and match diagnostics use OpenCV ORB as a proxy. They are not a direct dump of ORB-SLAM3 internal frontend state.
+The ORB keypoint and match diagnostics use OpenCV ORB as a proxy. They are not direct logs from ORB-SLAM3 internals.
+
+Some attack sweeps use three repeats, while the clean baselines use five repeats. This should be stated clearly in paper writing.
 
 ## Next extension
 
-After this ORB-SLAM3 block is organized and audited, the next system-level experiment should test transfer to a second SLAM system using a minimal pilot:
+The next system experiment should start with a small pilot:
 
 - clean
 - black 10%
 - checkerboard 5%
 
-Do not begin a full severity sweep on the next system until the pilot shows useful signal.
+Do not run a full sweep on the next SLAM system until the pilot shows useful signal.

@@ -43,7 +43,7 @@ These remain local under ignored folders such as:
 - `local_mechanism/`
 - `systems/ORB_SLAM3/`
 
-## Canonical ORB-SLAM3 documents
+## Main ORB-SLAM3 documents
 
 Read these first:
 
