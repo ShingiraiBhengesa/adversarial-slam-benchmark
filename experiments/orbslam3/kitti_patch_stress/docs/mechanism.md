@@ -62,19 +62,19 @@ This supports the mechanism claim: the checkerboard does not primarily harm ORB-
 
 ### Clean reference region
 
-![Clean reference ORB matches](../figures/mechanism/clean_reference_top_left_10pct_region_orb_matches.png)
+![Clean reference ORB matches](../figures/mechanism/kitti00_000120_000121_clean_orb_matches.png)
 
 ### Black 10% patch
 
-![Black patch ORB matches](../figures/mechanism/black_10pct_top_left_orb_matches.png)
+![Black patch ORB matches](../figures/mechanism/kitti00_000120_000121_black10_orb_matches.png)
 
 ### Checkerboard 5% patch
 
-![Checkerboard 5% ORB matches](../figures/mechanism/checkerboard_5pct_top_left_orb_matches.png)
+![Checkerboard 5% ORB matches](../figures/mechanism/kitti00_000120_000121_checkerboard5_orb_matches.png)
 
 ### Checkerboard 10% patch
 
-![Checkerboard 10% ORB matches](../figures/mechanism/checkerboard_10pct_top_left_orb_matches.png)
+![Checkerboard 10% ORB matches](../figures/mechanism/kitti00_000120_000121_checkerboard10_orb_matches.png)
 
 ## Paper-safe wording
 

@@ -84,8 +84,8 @@ The onset analysis separates mild degradation from catastrophic failure. At 1% a
 
 The trajectory figures provide qualitative support for the quantitative results.
 
-- [KITTI 00 trajectory comparison](../figures/kitti00_trajectory_clean_black_checkerboard.png)
-- [KITTI 02 trajectory comparison](../figures/kitti02_trajectory_clean_black_checkerboard.png)
+- [KITTI 00 trajectory comparison](../figures/trajectories/kitti00_trajectory_clean_black_checkerboard.png)
+- [KITTI 02 trajectory comparison](../figures/trajectories/kitti02_trajectory_clean_black_checkerboard.png)
 
 The clean and black-patch trajectories remain close to ground truth. The checkerboard trajectories visibly deviate, matching the large drift values.
 
@@ -93,7 +93,7 @@ The clean and black-patch trajectories remain close to ground truth. The checker
 
 A separate ORB feature and match proxy diagnostic supports the interpretation that the checkerboard patch acts as a feature-injection perturbation rather than simple occlusion.
 
-See: [ORB feature and match mechanism summary](orb_feature_match_mechanism_summary.md)
+See: [ORB feature and match mechanism summary](mechanism.md)
 
 ### ORB keypoint concentration
 
