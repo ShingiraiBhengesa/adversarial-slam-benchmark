@@ -31,3 +31,17 @@ The center result is especially important because it prevents overclaiming. A st
 - The top-right condition currently has only 2 valid runs and should be rerun to reach 3.
 - These are digital image-plane patches, not physical printed patches.
 - Segment drift values are KITTI-style repository metrics, not official KITTI odometry server results.
+
+## Pose-error time-series diagnostic
+
+| Condition | RMSE (m) | Max error (m) | Max frame | First >25m | First >50m | First >100m |
+|---|---:|---:|---:|---:|---:|---:|
+| clean | 7.11 | 11.67 | 3954 | — | — | — |
+| center | 6.63 | 11.80 | 3963 | — | — | — |
+| bottom-right | 213.99 | 479.25 | 2986 | 247 | 282 | 347 |
+
+## Interpretation
+
+The bottom-right checkerboard patch causes early trajectory divergence, crossing 25m error by frame 247 and 100m by frame 347. The maximum error occurs much later, but the onset is early. Therefore, the correct diagnostic window is approximately frames 240–350, not only the maximum-error region near frame 2986.
+
+The center patch remains close to clean behavior across the full sequence, despite having more patch-region keypoints, more patch-region temporal matches, and more patch-region RANSAC inliers. This strengthens the conclusion that the mechanism is not explained by raw feature count or generic temporal epipolar consistency alone.
