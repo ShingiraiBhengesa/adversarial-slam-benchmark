@@ -85,3 +85,21 @@ A safe formulation is:
 ## What this does not prove
 
 This diagnostic does not prove that every bad trajectory is caused by the exact matches shown in the overlays. It also does not replace direct ORB-SLAM3 frontend instrumentation. It is supporting mechanism evidence that explains why the black occlusion control remains near baseline while the checkerboard condition causes catastrophic drift.
+
+
+## Corrected match diagnostic geometry
+
+The ORB match diagnostic now infers the patch bounding box from clean-vs-attack image differences instead of assuming the patch begins at pixel `(0, 0)`. This matters because the patch generator places `top_left` patches with a small image margin rather than exactly at the image origin.
+
+The corrected fixed summary is stored at:
+
+- `artifacts/orbslam3_kitti_patch/mechanism/orb_match_diagnostic_summary_fixed.md`
+
+Representative match overlays are stored in:
+
+- `docs/figures/mechanism/kitti00_000120_000121_clean_orb_matches.png`
+- `docs/figures/mechanism/kitti00_000120_000121_black10_orb_matches.png`
+- `docs/figures/mechanism/kitti00_000120_000121_checkerboard5_orb_matches.png`
+- `docs/figures/mechanism/kitti00_000120_000121_checkerboard10_orb_matches.png`
+
+The corrected diagnostic should be treated as the canonical match diagnostic going forward.

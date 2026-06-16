@@ -1,0 +1,58 @@
+[
+  {
+    "condition": "clean_reference_top_left_10pct_region",
+    "pairs": 7,
+    "matches_mean": 2238.0,
+    "either_patch_match_percent_mean": 7.024623059980533,
+    "either_patch_match_percent_std": 4.960079495941496,
+    "both_patch_match_percent_mean": 5.03848332860886,
+    "both_patch_match_percent_std": 4.167314401753808,
+    "patch_area_percent_mean": 9.99879986970014,
+    "either_density_ratio_mean": 0.7025466207467155,
+    "either_density_ratio_std": 0.49606748415600066,
+    "both_density_ratio_mean": 0.5039088084838288,
+    "both_density_ratio_std": 0.4167814593811632
+  },
+  {
+    "condition": "black_10pct_top_left",
+    "pairs": 7,
+    "matches_mean": 2145.285714285714,
+    "either_patch_match_percent_mean": 0.09351543759364404,
+    "either_patch_match_percent_std": 0.08372174754341438,
+    "both_patch_match_percent_mean": 0.04901086790107436,
+    "both_patch_match_percent_std": 0.05111898410764878,
+    "patch_area_percent_mean": 9.99879986970014,
+    "either_density_ratio_mean": 0.009352666201173655,
+    "either_density_ratio_std": 0.008373179645001252,
+    "both_density_ratio_mean": 0.004901675054982791,
+    "both_density_ratio_std": 0.005112511978818295
+  },
+  {
+    "condition": "checkerboard_5pct_top_left",
+    "pairs": 7,
+    "matches_mean": 2458.0,
+    "either_patch_match_percent_mean": 25.870236540925458,
+    "either_patch_match_percent_std": 6.717409421312596,
+    "both_patch_match_percent_mean": 25.853433066037507,
+    "both_patch_match_percent_std": 6.719182555800402,
+    "patch_area_percent_mean": 5.016758962401632,
+    "either_density_ratio_mean": 5.1567629090437315,
+    "either_density_ratio_std": 1.3389938547290352,
+    "both_density_ratio_mean": 5.153413440788653,
+    "both_density_ratio_std": 1.3393472969615792
+  },
+  {
+    "condition": "checkerboard_10pct_top_left",
+    "pairs": 7,
+    "matches_mean": 2576.1428571428573,
+    "either_patch_match_percent_mean": 38.05489262651432,
+    "either_patch_match_percent_std": 6.67319021085719,
+    "both_patch_match_percent_mean": 38.03249270138501,
+    "both_patch_match_percent_std": 6.663724596589997,
+    "patch_area_percent_mean": 9.99879986970014,
+    "either_density_ratio_mean": 3.805946025765947,
+    "either_density_ratio_std": 0.6673991176760414,
+    "both_density_ratio_mean": 3.8037057643924617,
+    "both_density_ratio_std": 0.6664524426359821
+  }
+]

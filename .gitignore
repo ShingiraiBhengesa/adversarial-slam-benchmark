@@ -48,3 +48,7 @@ data/
 # KITTI official devkit local build artifacts
 external/kitti_odometry_devkit/devkit/cpp/eval_odometry_local
 scripts/*.bak
+
+local_mechanism/
+
+local_plans/
