@@ -45,3 +45,11 @@ The center result is especially important because it prevents overclaiming. A st
 The bottom-right checkerboard patch causes early trajectory divergence, crossing 25m error by frame 247 and 100m by frame 347. The maximum error occurs much later, but the onset is early. Therefore, the correct diagnostic window is approximately frames 240–350, not only the maximum-error region near frame 2986.
 
 The center patch remains close to clean behavior across the full sequence, despite having more patch-region keypoints, more patch-region temporal matches, and more patch-region RANSAC inliers. This strengthens the conclusion that the mechanism is not explained by raw feature count or generic temporal epipolar consistency alone.
+
+## Failure-onset visual inspection window
+
+A contact sheet was generated locally for frames 200, 240, 247, 282, 347, and 400 using the clean sequence and the bottom-right checkerboard attack sequence. These frames bracket the early divergence window where the bottom-right attack crosses 25m, 50m, and 100m pose error.
+
+Local artifact:
+
+`results/diagnostics/failure_onset_frames/bottom_right_onset_contact_sheet.png`
