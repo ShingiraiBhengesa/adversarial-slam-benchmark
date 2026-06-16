@@ -8,47 +8,62 @@ import cv2
 import numpy as np
 
 
-def patch_box(img, area_fraction):
-    h, w = img.shape[:2]
-    # Square patch whose area matches the requested fraction of the full image.
-    side = int(round((area_fraction * h * w) ** 0.5))
-    side = min(side, w, h)
-    return (0, 0, side, side)
-
-
-def inside_box(pt, box):
-    x, y = pt
-    x0, y0, x1, y1 = box
-    return x0 <= x < x1 and y0 <= y < y1
-
-
-def load_gray(path):
+def load_gray(path: Path):
     img = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
     if img is None:
         raise FileNotFoundError(path)
     return img
 
 
+def infer_patch_bbox(clean_img, attack_img, min_diff=10):
+    diff = cv2.absdiff(clean_img, attack_img)
+    mask = diff > min_diff
+
+    ys, xs = np.where(mask)
+    if len(xs) == 0:
+        return None
+
+    return int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1
+
+
+def inside_box(pt, box):
+    if box is None:
+        return False
+    x, y = pt
+    x0, y0, x1, y1 = box
+    return x0 <= x < x1 and y0 <= y < y1
+
+
+def bbox_area_fraction(box, img):
+    if box is None:
+        return 0.0
+    x0, y0, x1, y1 = box
+    area = max(0, x1 - x0) * max(0, y1 - y0)
+    h, w = img.shape[:2]
+    return area / float(h * w)
+
+
 def draw_matches(img1, kp1, img2, kp2, matches, box, out_path, max_draw=120):
     drawn = cv2.drawMatches(
-        img1, kp1,
-        img2, kp2,
+        img1,
+        kp1,
+        img2,
+        kp2,
         matches[:max_draw],
         None,
         flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS,
     )
 
-    x0, y0, x1, y1 = box
-    w = img1.shape[1]
-
-    # Draw patch boxes on left and right images.
-    cv2.rectangle(drawn, (x0, y0), (x1, y1), (0, 255, 255), 2)
-    cv2.rectangle(drawn, (x0 + w, y0), (x1 + w, y1), (0, 255, 255), 2)
+    if box is not None:
+        x0, y0, x1, y1 = box
+        w = img1.shape[1]
+        cv2.rectangle(drawn, (x0, y0), (x1, y1), (0, 255, 255), 2)
+        cv2.rectangle(drawn, (x0 + w, y0), (x1 + w, y1), (0, 255, 255), 2)
 
     cv2.imwrite(str(out_path), drawn)
 
 
-def analyze_pair(condition, img1_path, img2_path, area_fraction, outdir, nfeatures):
+def analyze_pair(condition, img1_path, img2_path, box, outdir, nfeatures):
     img1 = load_gray(img1_path)
     img2 = load_gray(img2_path)
 
@@ -72,14 +87,12 @@ def analyze_pair(condition, img1_path, img2_path, area_fraction, outdir, nfeatur
 
         matches = sorted(matches, key=lambda m: m.distance)
 
-    box = patch_box(img1, area_fraction)
-    x0, y0, x1, y1 = box
-    patch_area_fraction_actual = ((x1 - x0) * (y1 - y0)) / (img1.shape[0] * img1.shape[1])
+    patch_area_fraction = bbox_area_fraction(box, img1)
 
-    both_patch = 0
-    either_patch = 0
     query_patch = 0
     train_patch = 0
+    either_patch = 0
+    both_patch = 0
 
     for m in matches:
         p1 = kp1[m.queryIdx].pt
@@ -94,11 +107,11 @@ def analyze_pair(condition, img1_path, img2_path, area_fraction, outdir, nfeatur
         both_patch += int(in1 and in2)
 
     total = len(matches)
-    both_frac = both_patch / total if total else 0.0
     either_frac = either_patch / total if total else 0.0
+    both_frac = both_patch / total if total else 0.0
 
-    density_ratio_both = both_frac / patch_area_fraction_actual if patch_area_fraction_actual else 0.0
-    density_ratio_either = either_frac / patch_area_fraction_actual if patch_area_fraction_actual else 0.0
+    either_density = either_frac / patch_area_fraction if patch_area_fraction else 0.0
+    both_density = both_frac / patch_area_fraction if patch_area_fraction else 0.0
 
     out_img = outdir / f"{condition}_orb_matches.png"
     draw_matches(img1, kp1, img2, kp2, matches, box, out_img)
@@ -108,6 +121,8 @@ def analyze_pair(condition, img1_path, img2_path, area_fraction, outdir, nfeatur
         "image_1": str(img1_path),
         "image_2": str(img2_path),
         "nfeatures": nfeatures,
+        "patch_bbox_xyxy": box,
+        "patch_area_fraction": patch_area_fraction,
         "keypoints_frame1": len(kp1),
         "keypoints_frame2": len(kp2),
         "total_ratio_matches": total,
@@ -117,9 +132,8 @@ def analyze_pair(condition, img1_path, img2_path, area_fraction, outdir, nfeatur
         "both_patch_matches": both_patch,
         "either_patch_match_fraction": either_frac,
         "both_patch_match_fraction": both_frac,
-        "patch_area_fraction": patch_area_fraction_actual,
-        "either_patch_density_ratio": density_ratio_either,
-        "both_patch_density_ratio": density_ratio_both,
+        "either_patch_density_ratio": either_density,
+        "both_patch_density_ratio": both_density,
         "match_overlay": str(out_img),
     }
 
@@ -139,22 +153,42 @@ def main():
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
 
+    clean_dir = Path(args.clean_dir)
+    black10_dir = Path(args.black10_dir)
+    checkerboard5_dir = Path(args.checkerboard5_dir)
+    checkerboard10_dir = Path(args.checkerboard10_dir)
+
+    clean_a = load_gray(clean_dir / f"{args.frame_a}.png")
+    black_a = load_gray(black10_dir / f"{args.frame_a}.png")
+
+    reference_bbox = infer_patch_bbox(clean_a, black_a)
+    if reference_bbox is None:
+        raise RuntimeError("Could not infer reference patch box from clean vs black10 frame.")
+
     specs = [
-        ("clean_reference_top_left_10pct_region", args.clean_dir, 0.10),
-        ("black_10pct_top_left", args.black10_dir, 0.10),
-        ("checkerboard_5pct_top_left", args.checkerboard5_dir, 0.05),
-        ("checkerboard_10pct_top_left", args.checkerboard10_dir, 0.10),
+        ("clean_reference_top_left_10pct_region", clean_dir, reference_bbox),
+        ("black_10pct_top_left", black10_dir, None),
+        ("checkerboard_5pct_top_left", checkerboard5_dir, None),
+        ("checkerboard_10pct_top_left", checkerboard10_dir, None),
     ]
 
     rows = []
-    for condition, root, area in specs:
-        root = Path(root)
+    for condition, root, bbox in specs:
+        img_a_path = root / f"{args.frame_a}.png"
+        img_b_path = root / f"{args.frame_b}.png"
+
+        if bbox is None:
+            attack_a = load_gray(img_a_path)
+            bbox = infer_patch_bbox(clean_a, attack_a)
+            if bbox is None:
+                raise RuntimeError(f"Could not infer patch box for {condition}")
+
         rows.append(
             analyze_pair(
                 condition,
-                root / f"{args.frame_a}.png",
-                root / f"{args.frame_b}.png",
-                area,
+                img_a_path,
+                img_b_path,
+                bbox,
                 outdir,
                 args.nfeatures,
             )
@@ -169,7 +203,7 @@ def main():
         writer.writeheader()
         writer.writerows(rows)
 
-    json_path.write_text(json.dumps(rows, indent=2))
+    json_path.write_text(json.dumps(rows, indent=2) + "\n")
 
     lines = []
     lines.append(f"# ORB Match Diagnostics: KITTI frames {args.frame_a} → {args.frame_b}")
@@ -182,12 +216,14 @@ def main():
     lines.append("")
     lines.append("## Match summary")
     lines.append("")
-    lines.append("| Condition | Matches | Either endpoint in patch | Both endpoints in patch | Either-patch density ratio | Both-patch density ratio |")
-    lines.append("|---|---:|---:|---:|---:|---:|")
+    lines.append("| Condition | Matches | Patch area % | Either endpoint in patch | Both endpoints in patch | Either density ratio | Both density ratio |")
+    lines.append("|---|---:|---:|---:|---:|---:|---:|")
+
     for r in rows:
         lines.append(
             f"| {r['condition']} | "
             f"{r['total_ratio_matches']} | "
+            f"{100*r['patch_area_fraction']:.2f}% | "
             f"{100*r['either_patch_match_fraction']:.2f}% | "
             f"{100*r['both_patch_match_fraction']:.2f}% | "
             f"{r['either_patch_density_ratio']:.2f} | "
@@ -203,13 +239,14 @@ def main():
     lines.append("")
     lines.append("## Overlay figures")
     lines.append("")
+
     for r in rows:
         lines.append(f"### {r['condition']}")
         lines.append("")
         lines.append(f"![{r['condition']}]({Path(r['match_overlay']).name})")
         lines.append("")
 
-    md_path.write_text("\n".join(lines))
+    md_path.write_text("\n".join(lines) + "\n")
 
     print(json.dumps({
         "csv": str(csv_path),
