@@ -34,16 +34,16 @@ Experiment index:
 
 Canonical result documents:
 
-- `docs/attacks/main_results_narrative.md`
-- `docs/attacks/orb_feature_match_mechanism_summary.md`
+- `experiments/orbslam3/kitti_patch_stress/docs/main_results.md`
+- `experiments/orbslam3/kitti_patch_stress/docs/mechanism.md`
 
 Curated mechanism artifacts:
 
-- `artifacts/orbslam3_kitti_patch/mechanism/`
+- `experiments/orbslam3/kitti_patch_stress/results_summary/mechanism/`
 
 Selected figures:
 
-- `docs/figures/`
+- `experiments/orbslam3/kitti_patch_stress/figures/`
 
 ## Main finding
 
@@ -65,15 +65,15 @@ The safest interpretation is that checkerboard patches induce a threshold-like t
 
 ## Repository structure
 
-- `artifacts/orbslam3_kitti_patch/`
+- `experiments/orbslam3/kitti_patch_stress/results_summary/`
   - Curated small summaries and mechanism artifacts.
 - `docs/attacks/`
   - Canonical result and mechanism narratives.
-- `docs/figures/`
+- `experiments/orbslam3/kitti_patch_stress/figures/`
   - Selected paper-quality figures.
 - `experiments/orbslam3/kitti_patch_stress/`
   - Experiment-level index, runbooks, and manifests.
-- `scripts/`
+- `experiments/orbslam3/kitti_patch_stress/scripts/`
   - Patch generation, evaluation, auditing, and diagnostics scripts.
 - `systems/ORB_SLAM3/`
   - External ORB-SLAM3 checkout/build.
@@ -98,14 +98,14 @@ The high-level workflow is:
 
 1. Prepare KITTI Odometry data locally.
 2. Build ORB-SLAM3 under `systems/ORB_SLAM3/`.
-3. Generate patched KITTI image sequences with `scripts/create_kitti_patch_attack.py`.
-4. Run ORB-SLAM3 conditions with `scripts/run_orbslam3_kitti_condition.sh`.
-5. Aggregate repeated runs with `scripts/aggregate_orbslam3_attack_repeats.py`.
-6. Cross-check selected conditions with `scripts/run_kitti_official_devkit_eval.py`.
+3. Generate patched KITTI image sequences with `experiments/orbslam3/kitti_patch_stress/scripts/create_kitti_patch_attack.py`.
+4. Run ORB-SLAM3 conditions with `experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti_condition.sh`.
+5. Aggregate repeated runs with `experiments/orbslam3/kitti_patch_stress/scripts/aggregate_orbslam3_attack_repeats.py`.
+6. Cross-check selected conditions with `experiments/orbslam3/kitti_patch_stress/scripts/run_kitti_official_devkit_eval.py`.
 7. Run mechanism diagnostics with:
-   - `scripts/orb_patch_feature_diagnostics.py`
-   - `scripts/orb_patch_match_diagnostics.py`
-8. Audit expected artifacts with `scripts/audit_patch_attack_results.py`.
+   - `experiments/orbslam3/kitti_patch_stress/scripts/orb_patch_feature_diagnostics.py`
+   - `experiments/orbslam3/kitti_patch_stress/scripts/orb_patch_match_diagnostics.py`
+8. Audit expected artifacts with `experiments/orbslam3/kitti_patch_stress/scripts/audit_patch_attack_results.py`.
 
 ## Important caveats
 

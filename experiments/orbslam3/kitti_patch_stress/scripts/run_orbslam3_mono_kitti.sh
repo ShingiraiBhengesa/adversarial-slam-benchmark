@@ -3,11 +3,11 @@ set -euo pipefail
 
 # Usage:
 #   conda activate slam-bench
-#   source scripts/orbslam3_env.sh
-#   bash scripts/run_orbslam3_mono_kitti.sh <KITTI_SEQUENCE_DIR> <KITTI_SETTINGS_YAML>
+#   source experiments/orbslam3/kitti_patch_stress/scripts/orbslam3_env.sh
+#   bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_mono_kitti.sh <KITTI_SEQUENCE_DIR> <KITTI_SETTINGS_YAML>
 #
 # Example:
-#   bash scripts/run_orbslam3_mono_kitti.sh data/kitti/sequences/00 systems/ORB_SLAM3/Examples/Monocular/KITTI00-02.yaml
+#   bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_mono_kitti.sh data/kitti/sequences/00 systems/ORB_SLAM3/Examples/Monocular/KITTI00-02.yaml
 
 if [ "$#" -ne 2 ]; then
   echo "Usage: $0 <KITTI_SEQUENCE_DIR> <KITTI_SETTINGS_YAML>"
@@ -18,7 +18,7 @@ KITTI_SEQUENCE_DIR="$1"
 SETTINGS_YAML="$2"
 
 if [ -z "${ORB_SLAM3_ROOT:-}" ]; then
-  echo "ERROR: ORB_SLAM3_ROOT is not set. Run: source scripts/orbslam3_env.sh"
+  echo "ERROR: ORB_SLAM3_ROOT is not set. Run: source experiments/orbslam3/kitti_patch_stress/scripts/orbslam3_env.sh"
   exit 1
 fi
 

@@ -20,7 +20,7 @@
 
 ## ATE evaluation
 
-- Evaluation script: `scripts/evaluate_kitti_ate.py`
+- Evaluation script: `experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_ate.py`
 - Alignment: first_pose_SE3
 - Ground-truth path length: 3724.186990597451 m
 - ATE RMSE: 7.392536673666279 m
@@ -33,7 +33,7 @@
 
 ## KITTI-style segment drift evaluation
 
-- Evaluation script: `scripts/evaluate_kitti_segments.py`
+- Evaluation script: `experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_segments.py`
 - Step size: 10 frames
 - Segment lengths: 100, 200, 300, 400, 500, 600, 700, 800 m
 - Total evaluated segments: 3283

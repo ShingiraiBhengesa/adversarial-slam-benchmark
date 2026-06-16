@@ -50,14 +50,14 @@ Read these first:
 - `README.md`
 - `experiments/orbslam3/kitti_patch_stress/README.md`
 - `experiments/orbslam3/kitti_patch_stress/RUNBOOK.md`
-- `docs/attacks/main_results_narrative.md`
-- `docs/attacks/orb_feature_match_mechanism_summary.md`
+- `experiments/orbslam3/kitti_patch_stress/docs/main_results.md`
+- `experiments/orbslam3/kitti_patch_stress/docs/mechanism.md`
 
 ## Audit
 
 Run:
 
-    python scripts/audit_patch_attack_results.py
+    python experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/audit_patch_attack_results.py
 
 The audit checks that the curated ORB-SLAM3 result artifacts, figures, summaries, and docs expected by the repository are present.
 

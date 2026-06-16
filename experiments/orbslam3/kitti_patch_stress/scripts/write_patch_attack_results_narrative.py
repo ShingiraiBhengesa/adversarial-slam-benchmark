@@ -93,7 +93,7 @@ for tag, label in [
     ))
 
 
-out = Path("docs/attacks/main_results_narrative.md")
+out = Path("experiments/orbslam3/kitti_patch_stress/docs/main_results.md")
 out.parent.mkdir(parents=True, exist_ok=True)
 
 text = f"""# Main Results Narrative: ORB-SLAM3 Patch Stress Test

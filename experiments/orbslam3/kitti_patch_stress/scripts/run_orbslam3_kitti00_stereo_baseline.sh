@@ -6,10 +6,10 @@ set -euo pipefail
 #   2. KITTI-style segment drift
 #
 # Usage:
-#   bash scripts/run_orbslam3_kitti00_stereo_baseline.sh
+#   bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti00_stereo_baseline.sh
 #
 # Optional:
-#   RUN_TAG=my_run_name bash scripts/run_orbslam3_kitti00_stereo_baseline.sh
+#   RUN_TAG=my_run_name bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti00_stereo_baseline.sh
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
@@ -25,7 +25,7 @@ if [ -z "${CONDA_PREFIX:-}" ]; then
   fi
 fi
 
-source "$REPO_ROOT/scripts/orbslam3_env.sh"
+source "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/orbslam3_env.sh"
 
 RUN_TAG="${RUN_TAG:-$(date +%Y%m%d_%H%M%S)}"
 RUN_DIR="$REPO_ROOT/results/baselines/orbslam3/kitti00_stereo/run_${RUN_TAG}"
@@ -53,9 +53,9 @@ test -f "$ORB_SLAM3_VOCAB"
 test -d "$KITTI_SEQUENCE_DIR"
 test -f "$KITTI_GT"
 test -f "$SETTINGS_YAML"
-test -x "$REPO_ROOT/scripts/run_orbslam3_stereo_kitti.sh"
-test -f "$REPO_ROOT/scripts/evaluate_kitti_ate.py"
-test -f "$REPO_ROOT/scripts/evaluate_kitti_segments.py"
+test -x "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_stereo_kitti.sh"
+test -f "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_ate.py"
+test -f "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_segments.py"
 
 mkdir -p "$RUN_DIR"
 
@@ -77,7 +77,7 @@ echo "=== RUN ORB-SLAM3 ==="
 cd "$RUN_DIR"
 
 set +e
-bash "$REPO_ROOT/scripts/run_orbslam3_stereo_kitti.sh" \
+bash "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_stereo_kitti.sh" \
   "$KITTI_SEQUENCE_DIR" \
   "$SETTINGS_YAML" \
   > "$RUN_DIR/orbslam3_stdout.log" \
@@ -107,14 +107,14 @@ ls -lh "$TRAJECTORY_FILE"
 echo ""
 echo "=== EVALUATE ATE ==="
 cd "$REPO_ROOT"
-python "$REPO_ROOT/scripts/evaluate_kitti_ate.py" \
+python "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_ate.py" \
   --estimate "$TRAJECTORY_FILE" \
   --groundtruth "$KITTI_GT" \
   --output-json "$ATE_JSON"
 
 echo ""
 echo "=== EVALUATE KITTI-STYLE SEGMENT DRIFT ==="
-python "$REPO_ROOT/scripts/evaluate_kitti_segments.py" \
+python "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_segments.py" \
   --estimate "$TRAJECTORY_FILE" \
   --groundtruth "$KITTI_GT" \
   --output-json "$SEGMENT_JSON"

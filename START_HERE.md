@@ -15,21 +15,21 @@ The main result is simple:
 
 1. `README.md`
 2. `experiments/orbslam3/kitti_patch_stress/README.md`
-3. `docs/attacks/main_results_narrative.md`
-4. `docs/attacks/orb_feature_match_mechanism_summary.md`
+3. `experiments/orbslam3/kitti_patch_stress/docs/main_results.md`
+4. `experiments/orbslam3/kitti_patch_stress/docs/mechanism.md`
 5. `experiments/orbslam3/kitti_patch_stress/RUNBOOK.md`
 
 ## Where results are stored
 
 Small result summaries are here:
 
-- `artifacts/orbslam3_kitti_patch/summaries/`
-- `artifacts/orbslam3_kitti_patch/official_devkit/`
-- `artifacts/orbslam3_kitti_patch/mechanism/`
+- `experiments/orbslam3/kitti_patch_stress/results_summary/summaries/`
+- `experiments/orbslam3/kitti_patch_stress/results_summary/official_devkit/`
+- `experiments/orbslam3/kitti_patch_stress/results_summary/mechanism/`
 
 Selected figures are here:
 
-- `docs/figures/`
+- `experiments/orbslam3/kitti_patch_stress/figures/`
 
 ## What is not in the repo
 
@@ -45,6 +45,6 @@ Large local files are not committed:
 
 Run:
 
-    python scripts/audit_patch_attack_results.py
+    python experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/audit_patch_attack_results.py
 
 If it passes, the important result files are present.

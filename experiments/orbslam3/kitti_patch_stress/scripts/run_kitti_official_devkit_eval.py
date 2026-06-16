@@ -47,7 +47,7 @@ def main():
     ap.add_argument(
         "--devkit-binary",
         type=Path,
-        default=Path("external/kitti_odometry_devkit/devkit/cpp/eval_odometry_local"),
+        default=Path("third_party/kitti_odometry_devkit/devkit/cpp/eval_odometry_local"),
     )
     ap.add_argument(
         "--output-root",

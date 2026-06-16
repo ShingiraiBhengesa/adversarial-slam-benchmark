@@ -54,3 +54,4 @@ local_mechanism/
 local_plans/
 
 *.local
+*.bak

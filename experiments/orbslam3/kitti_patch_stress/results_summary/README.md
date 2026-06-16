@@ -17,8 +17,8 @@ Large raw outputs are intentionally not committed. Full trajectories, raw run fo
 
 ## Canonical docs
 
-- `../../docs/attacks/main_results_narrative.md`
-- `../../docs/attacks/orb_feature_match_mechanism_summary.md`
+- `../../experiments/orbslam3/kitti_patch_stress/docs/main_results.md`
+- `../../experiments/orbslam3/kitti_patch_stress/docs/mechanism.md`
 
 ## Experiment index
 

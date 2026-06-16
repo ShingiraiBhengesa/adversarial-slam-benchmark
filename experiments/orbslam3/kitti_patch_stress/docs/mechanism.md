@@ -93,13 +93,13 @@ The ORB match diagnostic now infers the patch bounding box from clean-vs-attack 
 
 The corrected fixed summary is stored at:
 
-- `artifacts/orbslam3_kitti_patch/mechanism/orb_match_diagnostic_summary_fixed.md`
+- `experiments/orbslam3/kitti_patch_stress/results_summary/mechanism/orb_match_diagnostic_summary_fixed.md`
 
 Representative match overlays are stored in:
 
-- `docs/figures/mechanism/kitti00_000120_000121_clean_orb_matches.png`
-- `docs/figures/mechanism/kitti00_000120_000121_black10_orb_matches.png`
-- `docs/figures/mechanism/kitti00_000120_000121_checkerboard5_orb_matches.png`
-- `docs/figures/mechanism/kitti00_000120_000121_checkerboard10_orb_matches.png`
+- `experiments/orbslam3/kitti_patch_stress/figures/mechanism/kitti00_000120_000121_clean_orb_matches.png`
+- `experiments/orbslam3/kitti_patch_stress/figures/mechanism/kitti00_000120_000121_black10_orb_matches.png`
+- `experiments/orbslam3/kitti_patch_stress/figures/mechanism/kitti00_000120_000121_checkerboard5_orb_matches.png`
+- `experiments/orbslam3/kitti_patch_stress/figures/mechanism/kitti00_000120_000121_checkerboard10_orb_matches.png`
 
 The corrected diagnostic should be treated as the canonical match diagnostic going forward.

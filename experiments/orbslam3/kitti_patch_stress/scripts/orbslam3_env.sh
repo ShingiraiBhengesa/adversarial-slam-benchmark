@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Source this after activating the slam-bench conda environment:
 #   conda activate slam-bench
-#   source scripts/orbslam3_env.sh
+#   source experiments/orbslam3/kitti_patch_stress/scripts/orbslam3_env.sh
 
 if [ -z "${CONDA_PREFIX:-}" ]; then
   echo "ERROR: CONDA_PREFIX is not set. Run: conda activate slam-bench"

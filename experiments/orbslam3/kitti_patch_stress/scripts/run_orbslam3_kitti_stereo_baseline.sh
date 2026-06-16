@@ -73,14 +73,14 @@ popd >/dev/null
 
 echo ""
 echo "=== EVALUATE ATE ==="
-python "$REPO_ROOT/scripts/evaluate_kitti_ate.py" \
+python "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_ate.py" \
   --estimate "$RUN_DIR/CameraTrajectory.txt" \
   --groundtruth "$KITTI_GT" \
   --output-json "$RUN_DIR/ate_metrics.json"
 
 echo ""
 echo "=== EVALUATE KITTI-STYLE SEGMENT DRIFT ==="
-python "$REPO_ROOT/scripts/evaluate_kitti_segments.py" \
+python "$REPO_ROOT/experiments/orbslam3/kitti_patch_stress/scripts/evaluate_kitti_segments.py" \
   --estimate "$RUN_DIR/CameraTrajectory.txt" \
   --groundtruth "$KITTI_GT" \
   --output-json "$RUN_DIR/kitti_segment_metrics.json"
