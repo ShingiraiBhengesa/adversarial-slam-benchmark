@@ -30,3 +30,19 @@ This supports the hypothesis that the attack effect comes from artificial textur
 ## Caveat
 
 The stereo match fraction is small for all conditions. Therefore, the large disparity values should be interpreted together with match volume and downstream SLAM degradation, not as a standalone explanation. A stronger future diagnostic would instrument ORB-SLAM3 directly to count patch-region inliers, outliers, and map points.
+
+## Absolute match-count diagnostic
+
+| Condition | Temporal matches total | Temporal patch matches | Stereo matches total | Stereo patch matches |
+|---|---:|---:|---:|---:|
+| black 5% bottom-right left-only | 1026.39 | 0.43 | 818.57 | 0.14 |
+| random 5% bottom-right left-only | 1212.74 | 488.39 | 630.88 | 1.25 |
+| checkerboard 5% bottom-right left-only | 1179.32 | 624.62 | 499.75 | 1.16 |
+
+## Refined interpretation
+
+The absolute counts show that the black patch contributes almost no patch-region temporal matches, while the random and checkerboard patches contribute hundreds of temporal patch matches per sampled frame pair. This is a stronger diagnostic than patch keypoint count alone.
+
+The stereo patch match counts are very small, around one patch-region stereo match per sampled frame. Therefore, the stereo disparity diagnostic should be treated as supporting evidence, not the primary mechanism.
+
+The current best explanation is temporal feature-track pollution: textured patches inject persistent artificial ORB features that are repeatedly matched across time, contaminating tracking and mapping. Simple occlusion does not create this effect.
