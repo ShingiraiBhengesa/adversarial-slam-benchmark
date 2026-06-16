@@ -59,3 +59,11 @@ Local artifact:
 The bottom-right contact sheet shows that during the early divergence window, especially frames 240–400, the checkerboard patch overlaps visually important right-side scene structure such as parked cars, building edges, sidewalk boundaries, shadows, and façade lines. This suggests the observed failure is not simply caused by adding many features anywhere in the image.
 
 The stronger interpretation is that the checkerboard patch becomes harmful when placed over spatial regions that contribute important tracking and mapping constraints. This supports a placement-sensitive mechanism rather than a pure keypoint-count or pure temporal-RANSAC explanation.
+
+## Center-vs-corner visual comparison
+
+The center contact sheet shows that the center checkerboard patch also overlaps visually meaningful scene content, including the road corridor, parked cars, building boundaries, and shadows. However, the center condition remains close to clean baseline performance.
+
+This weakens the simpler hypothesis that failure occurs merely because the patch covers important scene structure. The evidence instead points toward a more spatially specific mechanism: high-texture injected features become most harmful when they create a strong asymmetric feature cluster near the image periphery or corners. This may affect ORB-SLAM3 through feature distribution, map-point creation, keyframe/local-map behavior, or pose-optimization leverage rather than through raw keypoint count alone.
+
+The center patch appears to be geometrically absorbed by the tracker, while peripheral patches produce early trajectory divergence.
