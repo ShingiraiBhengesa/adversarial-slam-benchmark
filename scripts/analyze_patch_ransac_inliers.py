@@ -55,6 +55,103 @@ def summarize(vals):
     }
 
 
+
+def normalize_points_2d(pts):
+    pts = np.asarray(pts, dtype=np.float64)
+    centroid = pts.mean(axis=0)
+    centered = pts - centroid
+    mean_dist = np.mean(np.linalg.norm(centered, axis=1))
+    scale = np.sqrt(2.0) / mean_dist if mean_dist > 1e-12 else 1.0
+
+    T = np.array([
+        [scale, 0.0, -scale * centroid[0]],
+        [0.0, scale, -scale * centroid[1]],
+        [0.0, 0.0, 1.0],
+    ], dtype=np.float64)
+
+    pts_h = np.column_stack([pts, np.ones(len(pts))])
+    pts_n = (T @ pts_h.T).T
+    return pts_n, T
+
+
+def estimate_fundamental_8point(pts0, pts1):
+    if len(pts0) < 8:
+        return None
+
+    p0, T0 = normalize_points_2d(pts0)
+    p1, T1 = normalize_points_2d(pts1)
+
+    x0, y0 = p0[:, 0], p0[:, 1]
+    x1, y1 = p1[:, 0], p1[:, 1]
+
+    A = np.column_stack([
+        x1 * x0, x1 * y0, x1,
+        y1 * x0, y1 * y0, y1,
+        x0, y0, np.ones(len(p0)),
+    ])
+
+    try:
+        _, _, vh = np.linalg.svd(A)
+        F = vh[-1].reshape(3, 3)
+
+        # enforce rank 2
+        u, s, vh = np.linalg.svd(F)
+        s[-1] = 0.0
+        F_rank2 = u @ np.diag(s) @ vh
+
+        F_denorm = T1.T @ F_rank2 @ T0
+        norm = np.linalg.norm(F_denorm)
+        return F_denorm / norm if norm > 1e-12 else F_denorm
+    except np.linalg.LinAlgError:
+        return None
+
+
+def sampson_error_px(F, pts0, pts1):
+    pts0_h = np.column_stack([pts0, np.ones(len(pts0))])
+    pts1_h = np.column_stack([pts1, np.ones(len(pts1))])
+
+    Fx0 = (F @ pts0_h.T).T
+    Ftx1 = (F.T @ pts1_h.T).T
+    x1tFx0 = np.sum(pts1_h * Fx0, axis=1)
+
+    denom = Fx0[:, 0] ** 2 + Fx0[:, 1] ** 2 + Ftx1[:, 0] ** 2 + Ftx1[:, 1] ** 2
+    denom = np.maximum(denom, 1e-12)
+
+    return np.sqrt((x1tFx0 ** 2) / denom)
+
+
+def ransac_fundamental_numpy(pts0, pts1, threshold_px, max_iters=300, seed=0):
+    pts0 = np.asarray(pts0, dtype=np.float64)
+    pts1 = np.asarray(pts1, dtype=np.float64)
+
+    n = len(pts0)
+    if n < 8:
+        return None, np.zeros(n, dtype=bool)
+
+    rng = np.random.default_rng(seed)
+    best_mask = np.zeros(n, dtype=bool)
+    best_count = 0
+
+    for _ in range(max_iters):
+        sample = rng.choice(n, size=8, replace=False)
+        F = estimate_fundamental_8point(pts0[sample], pts1[sample])
+        if F is None:
+            continue
+
+        err = sampson_error_px(F, pts0, pts1)
+        mask = err <= threshold_px
+        count = int(mask.sum())
+
+        if count > best_count:
+            best_count = count
+            best_mask = mask
+
+    if best_count >= 8:
+        F_refined = estimate_fundamental_8point(pts0[best_mask], pts1[best_mask])
+        return F_refined, best_mask
+
+    return None, best_mask
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sequence", required=True, type=Path)
@@ -66,6 +163,9 @@ def main():
     ap.add_argument("--nfeatures", type=int, default=2000)
     ap.add_argument("--max-hamming", type=int, default=50)
     ap.add_argument("--ransac-threshold", type=float, default=1.0)
+    ap.add_argument("--ransac-iters", type=int, default=100)
+    ap.add_argument("--max-ransac-matches", type=int, default=300)
+    ap.add_argument("--max-pairs", type=int, default=0)
     ap.add_argument("--output-json", required=True, type=Path)
     args = ap.parse_args()
 
@@ -82,6 +182,8 @@ def main():
     total_inlier_counts = []
 
     for idx in range(0, len(images) - args.pair_step, args.stride):
+        if args.max_pairs > 0 and len(records) >= args.max_pairs:
+            break
         img0 = cv2.imread(str(images[idx]), cv2.IMREAD_GRAYSCALE)
         img1 = cv2.imread(str(images[idx + args.pair_step]), cv2.IMREAD_GRAYSCALE)
 
@@ -104,25 +206,30 @@ def main():
         if len(matches) < 8:
             continue
 
-        pts0 = np.asarray([kp0[m.queryIdx].pt for m in matches], dtype=np.float32).reshape(-1, 1, 2)
-        pts1 = np.asarray([kp1[m.trainIdx].pt for m in matches], dtype=np.float32).reshape(-1, 1, 2)
+        pts0 = np.ascontiguousarray([kp0[m.queryIdx].pt for m in matches], dtype=np.float32)
+        pts1 = np.ascontiguousarray([kp1[m.trainIdx].pt for m in matches], dtype=np.float32)
+        patch_match_flags = np.array([inside_patch(kp0[m.queryIdx], box) for m in matches], dtype=bool)
 
-        F, mask = cv2.findFundamentalMat(
-            pts0,
-            pts1,
-            cv2.FM_RANSAC,
-            args.ransac_threshold,
-            0.99,
-            2000,
+        rng = np.random.default_rng(12345 + idx)
+        if len(matches) > args.max_ransac_matches:
+            sample_idx = rng.choice(len(matches), size=args.max_ransac_matches, replace=False)
+        else:
+            sample_idx = np.arange(len(matches))
+
+        F, _ = ransac_fundamental_numpy(
+            pts0[sample_idx],
+            pts1[sample_idx],
+            threshold_px=float(args.ransac_threshold),
+            max_iters=int(args.ransac_iters),
+            seed=12345 + idx,
         )
 
-        if mask is None:
+        if F is None:
             continue
 
-        mask = mask.ravel().astype(bool)
+        err = sampson_error_px(F, pts0, pts1)
+        mask = err <= float(args.ransac_threshold)
         total_inliers = int(mask.sum())
-
-        patch_match_flags = np.array([inside_patch(kp0[m.queryIdx], box) for m in matches], dtype=bool)
         patch_matches = int(patch_match_flags.sum())
         patch_inliers = int(np.logical_and(mask, patch_match_flags).sum())
 
