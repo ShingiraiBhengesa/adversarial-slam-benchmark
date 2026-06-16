@@ -57,7 +57,7 @@ Read these first:
 
 Run:
 
-    python experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/audit_patch_attack_results.py
+    python experiments/orbslam3/kitti_patch_stress/scripts/audit_patch_attack_results.py
 
 The audit checks that the curated ORB-SLAM3 result artifacts, figures, summaries, and docs expected by the repository are present.
 

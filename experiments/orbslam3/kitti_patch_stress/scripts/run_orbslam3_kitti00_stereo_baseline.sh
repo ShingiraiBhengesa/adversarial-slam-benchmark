@@ -6,10 +6,10 @@ set -euo pipefail
 #   2. KITTI-style segment drift
 #
 # Usage:
-#   bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti00_stereo_baseline.sh
+#   bash experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti00_stereo_baseline.sh
 #
 # Optional:
-#   RUN_TAG=my_run_name bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti00_stereo_baseline.sh
+#   RUN_TAG=my_run_name bash experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti00_stereo_baseline.sh
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"

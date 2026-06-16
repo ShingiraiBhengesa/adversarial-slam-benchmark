@@ -4,10 +4,10 @@ set -euo pipefail
 # Usage:
 #   conda activate slam-bench
 #   source experiments/orbslam3/kitti_patch_stress/scripts/orbslam3_env.sh
-#   bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_mono_kitti.sh <KITTI_SEQUENCE_DIR> <KITTI_SETTINGS_YAML>
+#   bash experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_mono_kitti.sh <KITTI_SEQUENCE_DIR> <KITTI_SETTINGS_YAML>
 #
 # Example:
-#   bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_mono_kitti.sh data/kitti/sequences/00 systems/ORB_SLAM3/Examples/Monocular/KITTI00-02.yaml
+#   bash experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_mono_kitti.sh data/kitti/sequences/00 systems/ORB_SLAM3/Examples/Monocular/KITTI00-02.yaml
 
 if [ "$#" -ne 2 ]; then
   echo "Usage: $0 <KITTI_SEQUENCE_DIR> <KITTI_SETTINGS_YAML>"

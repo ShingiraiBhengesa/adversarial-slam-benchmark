@@ -35,7 +35,7 @@ This external system directory is not treated as benchmark source code.
 
 Example black 10% patch:
 
-    python experiments/orbslam3/kitti_patch_stress/shared/patching/create_kitti_patch_attack.py \
+    python shared/patching/create_kitti_patch_attack.py \
       --source-sequence data/kitti/dataset/sequences/00 \
       --output-sequence data/kitti_attacks/seq00_black_10pct_top_left_leftonly \
       --area-fraction 0.10 \
@@ -44,7 +44,7 @@ Example black 10% patch:
 
 Example checkerboard 5% patch:
 
-    python experiments/orbslam3/kitti_patch_stress/shared/patching/create_kitti_patch_attack.py \
+    python shared/patching/create_kitti_patch_attack.py \
       --source-sequence data/kitti/dataset/sequences/00 \
       --output-sequence data/kitti_attacks/seq00_checkerboard_05pct_top_left_leftonly \
       --area-fraction 0.05 \
@@ -57,7 +57,7 @@ The attacked image sequences are generated local data and are not committed.
 
 Example single condition runner:
 
-    bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti_condition.sh \
+    bash experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti_condition.sh \
       00 \
       seq00_checkerboard_05pct_top_left_leftonly \
       data/kitti_attacks/seq00_checkerboard_05pct_top_left_leftonly \
@@ -71,7 +71,7 @@ Raw run folders are not committed.
 
 Example:
 
-    python experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/aggregate_orbslam3_attack_repeats.py \
+    python experiments/orbslam3/kitti_patch_stress/scripts/aggregate_orbslam3_attack_repeats.py \
       --attack-root results/attacks/orbslam3/seq00_checkerboard_05pct_top_left_leftonly \
       --output-json results/attacks/orbslam3/seq00_checkerboard_05pct_top_left_leftonly/attack_repeat_summary.json
 
@@ -79,7 +79,7 @@ Example:
 
 Example:
 
-    python experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/summarize_orbslam3_logs.py \
+    python experiments/orbslam3/kitti_patch_stress/scripts/summarize_orbslam3_logs.py \
       --root results/attacks/orbslam3/seq00_checkerboard_05pct_top_left_leftonly \
       --output-json results/diagnostics/logs_severity/seq00_checkerboard_05pct_top_left_leftonly_log_summary.json
 
@@ -87,7 +87,7 @@ Example:
 
 Selected conditions are cross-checked with the official KITTI odometry devkit wrapper:
 
-    python experiments/orbslam3/kitti_patch_stress/shared/evaluation/run_kitti_official_devkit_eval.py \
+    python shared/evaluation/run_kitti_official_devkit_eval.py \
       --seq 00 \
       --condition checkerboard05_top_left \
       --prediction results/official_kitti_eval_inputs/kitti00_checkerboard05_top_left/predictions/00.txt \
@@ -101,7 +101,7 @@ The official devkit summaries are copied into:
 
 Run ORB keypoint diagnostics:
 
-    python experiments/orbslam3/kitti_patch_stress/shared/diagnostics/orb_patch_feature_diagnostics.py \
+    python shared/diagnostics/orb_patch_feature_diagnostics.py \
       --frame 000120 \
       --clean data/kitti/dataset/sequences/00/image_0/000120.png \
       --black10 data/kitti_attacks/seq00_black_10pct_top_left_leftonly/image_0/000120.png \
@@ -112,7 +112,7 @@ Run ORB keypoint diagnostics:
 
 Run ORB match diagnostics:
 
-    python experiments/orbslam3/kitti_patch_stress/shared/diagnostics/orb_patch_match_diagnostics.py \
+    python shared/diagnostics/orb_patch_match_diagnostics.py \
       --frame-a 000120 \
       --frame-b 000121 \
       --clean-dir data/kitti/dataset/sequences/00/image_0 \
@@ -131,7 +131,7 @@ Raw mechanism outputs remain local. Curated summaries and selected figures are c
 
 Run:
 
-    python experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/audit_patch_attack_results.py
+    python experiments/orbslam3/kitti_patch_stress/scripts/audit_patch_attack_results.py
 
 The audit should pass before new systems are added.
 

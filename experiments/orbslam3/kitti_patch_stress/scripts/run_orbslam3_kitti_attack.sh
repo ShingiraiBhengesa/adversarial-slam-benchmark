@@ -2,10 +2,10 @@
 set -euo pipefail
 
 # Usage:
-#   bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti_attack.sh <ATTACK_NAME> <ATTACK_SEQUENCE_DIR>
+#   bash experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti_attack.sh <ATTACK_NAME> <ATTACK_SEQUENCE_DIR>
 #
 # Example:
-#   bash experiments/orbslam3/kitti_patch_stress/experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti_attack.sh \
+#   bash experiments/orbslam3/kitti_patch_stress/scripts/run_orbslam3_kitti_attack.sh \
 #     seq00_checkerboard_5pct_bottom_right_leftonly \
 #     data/kitti_attacks/seq00_checkerboard_5pct_bottom_right_leftonly
 

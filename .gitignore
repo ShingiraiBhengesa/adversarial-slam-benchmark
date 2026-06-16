@@ -46,7 +46,7 @@ CMakeCache.txt
 data/
 
 # KITTI official devkit local build artifacts
-external/kitti_odometry_devkit/devkit/cpp/eval_odometry_local
+tools/kitti_odometry_devkit/devkit/cpp/eval_odometry_local
 scripts/*.bak
 
 local_mechanism/
@@ -57,9 +57,9 @@ local_plans/
 *.bak
 
 # Third-party local build outputs
-third_party/**/build/
-third_party/**/eval_odometry_local
-third_party/**/*.o
-third_party/**/CMakeCache.txt
-third_party/**/CMakeFiles/
-third_party/**/Makefile
+tools/**/build/
+tools/**/eval_odometry_local
+tools/**/*.o
+tools/**/CMakeCache.txt
+tools/**/CMakeFiles/
+tools/**/Makefile
