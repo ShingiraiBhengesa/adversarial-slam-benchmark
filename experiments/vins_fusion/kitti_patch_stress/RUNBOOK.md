@@ -20,7 +20,7 @@ This is a pilot, not a full sweep.
 
 VINS-Fusion source/build should live locally under:
 
-- systems/VINS-Fusion/
+- systems/vins_fusion_ws/src/VINS-Fusion/
 
 KITTI data should live locally under:
 
