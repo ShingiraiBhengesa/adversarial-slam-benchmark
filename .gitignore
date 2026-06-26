@@ -63,3 +63,6 @@ tools/**/*.o
 tools/**/CMakeCache.txt
 tools/**/CMakeFiles/
 tools/**/Makefile
+
+# Local SLAM system source/build trees
+systems/
